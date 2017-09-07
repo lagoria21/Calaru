@@ -1,0 +1,104 @@
+<div class="app-content has-header has-subheader">
+
+	<div class="app-header1">
+		<div class="header">
+			<div class="container">
+				<h1 class="title">
+					<i aria-hidden="true" class="lineal lineal-stack-windows"></i>EGRESO
+					STOCK
+				</h1>
+			</div>
+		</div>
+
+		<div class="subheader1">
+			<div class="container">
+				<div class="input-search">
+					<i class="lineal lineal-search"></i> <input class="form-control"
+						placeholder="Ingrese numero de orden"
+						ng-model="search.textoPregunta">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div class="app-section">
+		<div class="container">
+
+			<table class="table main-list">
+				<thead>
+					<tr>
+						<th class="text-center">Codigo</th>
+						<th class="text-center">Descripci&oacute;n</th>
+						<th class="text-center">Cantidad</th>
+						<th class="text-center">Sector</th>
+						<th class="text-center">Ubicacion</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ingreso in ctrl.ingresoPager">
+						<td><div class="checkbox">
+								<label><input
+									ng-checked="!ctrl.seleccionados.has(ingreso.id) != !ctrl.invertirSeleccion"
+									ng-click="ctrl.toggleSeleccion(ingreso.id)" type="checkbox"></label>
+							</div></td>
+						<td class="text-center">{{ingreso.codigo}}</td>
+						<td class="text-center">{{ingreso.descripcion}}</td>
+						<td class="text-center">{{ingreso.cantidad}}</td>
+						<td class="text-center">{{ingreso.sector}}</td>
+						<td class="text-center">{{ingreso.ubicacion}}</td>
+						<td class="text-center"><a
+							class="btn btn-icon btn-default btn-sm"
+							ng-href="#/ingresoStock/edicion/{{ingreso.id}}" title="Editar"><i
+								class="lineal lineal-edit"></i></a> <a
+							class="btn btn-icon btn-default btn-sm" title="Eliminar"
+							ng-click="ctrl.remove(ingreso)"><i
+								class="lineal lineal-delete"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- <a href="javascript:generarPdf()">desacargar</a>			 -->
+
+			<div class="text-right">
+				<bgf-pagination collection="ctrl.ingresoPager" url="'stock/page'"
+					method="POST" post-data="ctrl.filtro" per-page="5"
+					auto-presets="false" reload-page="ctrl.reloadPage"
+					num-items="ctrl.totalItems"> </bgf-pagination>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$("#form-search").hide();
+	$(".switch-group #search").click(function() {
+		$(this).parent().addClass("active");
+		$("#filters").parent().removeClass("active");
+		$("#form-search").show();
+		$("#form-filters").hide();
+	});
+	$(".switch-group #filters").click(function() {
+		$(this).parent().addClass("active");
+		$("#search").parent().removeClass("active");
+		$("#form-filters").show();
+		$("#form-search").hide();
+	});
+
+	$("td .checkbox").click(function() {
+		$(".subheader .options").toggleClass("open");
+	});
+	$(".options .close").click(function() {
+		$(".subheader .options").removeClass("open");
+	});
+
+	$('[data-toggle="popover"]').popover({
+		html : true,
+	});
+</script>
+

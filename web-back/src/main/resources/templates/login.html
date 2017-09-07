@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>CALARU</title>
+	<meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <title>Ingresar</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/genha.css" rel="stylesheet" />
+	<link href="css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<div tiles:fragment="content" class="container">	
+	
+	<form th:action="@{http://localhost:9090/front/}" method="get">
+		 <div style="text-align:center;"> <button class="btn btn-lg btn-primary" type="Submit">Volver a la pagina de Login</button></div>
+	</form>
+
+	
+
+	<br>
+		
+		<form th:action="@{/login}" method="POST" class="form-signin">
+			<h4 class="form-signin-heading">INGRESO COMO ADMINISTRADOR</h4>
+			<br/>
+			 
+			<input type="text" id="email" name="email"  th:placeholder="Email" class="form-control" />
+			<br/> 
+			<input type="password"  th:placeholder="Password" id="password" name="password" class="form-control" /> 
+			<br /> 
+				
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email o Password son inválidos, por favor verifique sus datos</p>
+			</div>
+			
+			<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Ingresar"></button>
+		</form>
+		
+		<div class="login-footer">&copy; 2017 CALARU SOLUCIONES S.A.</div>
+	</div>
+		
+    <script type="text/javascript" src="css/jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="css/bootstrap.min.js"></script>	
+
+</body>
+</html>
+
+

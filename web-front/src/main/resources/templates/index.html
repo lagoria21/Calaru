@@ -1,0 +1,347 @@
+<!doctype html> 
+ <html xmlns:th="http://www.thymeleaf.org"
+ 	xmlns:layout="http://www.thymeleaf.org"> 
+ <head> 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+ <meta charset="utf-8"></meta> 
+ <meta name="viewport" content="width=device-width, initial-scale=1"></meta> 
+ <title>CALARU</title> 
+ <link href="css/bootstrap.css" rel="stylesheet">
+ <link href="css/migire.css" rel="stylesheet"> 
+ <link href="css/genha.css" rel="stylesheet"> 
+
+ <style type="text/css"> 
+ [ng\:cloak], [ng-cloak], .ng-cloak { 
+ 	display: none !important; 
+ } 
+ </style> 
+ </head> 
+
+ <body ng-app="MiGire"> 
+ <nav class="navbar navbar-default"> 
+ 	<div class="container-fluid"> 
+ 		<div class="navbar-header"> 
+ 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> 
+               <span class="sr-only">Toggle navigation</span> 
+               <span class="icon-bar"></span> 
+               <span class="icon-bar"></span> 
+               <span class="icon-bar"></span> 
+             </button> 
+<!--  			<a class="navbar-brand" href="#"> <img alt="Brand"  -->
+<!--  				th:src="@{/static/images/logo_gire_soluciones_small.png}"></img>  -->
+<!--  			</a>  -->
+ 		</div> 
+ 		<div id="navbar" class="navbar-collapse collapse"> 
+ 			<ul class="nav navbar-nav"> 
+ 				<li ><a ng-href="#/index">Inicio</a></li>
+ 				<li ><a ng-href="#/ingresoStock/lista">Ingreso Stock</a></li> 
+ 				<li ><a ng-href="#/ordenTrabajo/alta">Orden de trabajo</a></li> 
+ 				<li ><a ng-href="#/egresoStock/lista">Egreso Stock</a></li> 
+ 				<li ><a ng-href="#/pedido/lista">Pedido</a></li> 
+ 				<li ><a ng-href="#/consulta/lista">Consulta</a></li> 
+ 			</ul> 
+ 			<ul class="nav navbar-nav navbar-right"> 
+ 				<li> 
+ 					<div if="${#httpServletRequest.remoteUser != null}"> 
+ 					  <p class="navbar-text">&iexcl;Hola <span th:text="${#httpServletRequest.remoteUser}"></span>!</p> 
+ 					</div> 
+ 				</li> 
+ 				<li> 
+ 					<form action="logout" method="post" class="navbar-form"> 
+ 						<button type="submit" class="btn btn-danger">Salir</button> 
+ 					</form> 
+ 				</li>	 
+ 			</ul> 
+ 		</div> 
+ 	</div>  
+ </nav> 
+ 	<ng-view> </ng-view> 
+ 	<script src="js/jquery.js" type="text/javascript"></script> 
+ 	<script src="js/angular.js" type="text/javascript"></script> 
+ 	<script src="js/bootstrap.js" type="text/javascript"></script> 
+ 	<script src="js/ui-bootstrap.js" type="text/javascript"></script> 
+ 	<script src="js/immutable.js" type="text/javascript"></script> 
+ 	<script src="util/paginate-anything-tpls.js" type="text/javascript"></script> 
+ 	<script src="util/messageDialog.js" type="text/javascript"></script> 
+ 	<script src="util/convertDateInterceptor.js" type="text/javascript"></script> 
+ 	<script src="util/userService.js" type="text/javascript"></script> 
+ 	<script src="main.js" type="text/javascript"></script> 
+ 	<script src="common-resources.js" type="text/javascript"></script>	 
+ 	<script src="ingresoStock/ingreso.js" type="text/javascript"></script> 
+ 	<script src="ordenTrabajo/orden.js" type="text/javascript"></script> 
+ 	<script src="jspdf.min.js" type="text/javascript"></script>
+ 	<script src="Chart.min.js" type="text/javascript"></script>
+ 	<script src="Chart.js" type="text/javascript"></script>
+ 	<script src="egresoStock/egresoStock.js" type="text/javascript"></script>
+ 	<script src="pedido/pedido.js" type="text/javascript"></script>
+ 	<script src="consulta/consulta.js" type="text/javascript"></script>
+ 	 
+ </body> 
+ </html> 
+
+
+<!-- <!doctype html> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+<!-- <title>Mi GIRE</title> -->
+<!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+<!-- <link href="css/migire.css" rel="stylesheet"> -->
+<!-- <link href="css/fileinput.min.css" rel="stylesheet"> -->
+<!-- <link href="css/sb-admin.css" rel="stylesheet"> -->
+
+<!-- <style type="text/css"> -->
+<!--/* [ng\:cloak], [ng-cloak], .ng-cloak { */
+/* 	display: none !important; */
+/* } */
+<!-- </style> -->
+<!-- </head> -->
+
+<!-- <body ng-app="MiGire"> -->
+
+<!-- 	<div class="navbar-fixed-top"> -->
+
+<!-- 		<div class="navbar-header"> -->
+<!-- 			<a class="navbar-brand" style="color: #ffffff"> Gire Soluciones</a> -->
+<!-- 		</div> -->
+
+<!-- 		<ul class="nav navbar-right top-nav"> -->
+<!-- 			<li style="cursor: pointer; cursor: hand"><a -->
+<!-- 				class="dropdown-toggle" data-toggle="dropdown"> <img -->
+<!-- 					src="img/user.png" width="30px" height="20px"> <b -->
+<!-- 					class="caret"></b> -->
+<!-- 			</a> -->
+<!-- 				<ul class="dropdown-menu dropdown-user"> -->
+<!-- 					<li><a> -->
+<!-- 							{{userModal.userAuthentication.rolEmpresaUsuario.usuarioAd.nombreApellido}}</a> -->
+<!-- 					</li> -->
+<!-- 					<li class="divider"></li> -->
+<!-- 					<li class="has-icon"><a href="logout"><i -->
+<!-- 							aria-hidden="true" class="lineal lineal-power"></i> Salir</a></li> -->
+<!-- 				</ul></li> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
+
+
+<!-- 	<div class="sidenav"> -->
+<!-- 		<div class="brand"></div> -->
+<!-- 		<div class="footer"> -->
+<!-- 			<div class="user-avatar"> -->
+<!-- 				<img ng-src="{{userModal.userAuthentication.logo}}"> -->
+
+<!-- 			</div> -->
+<!-- 			<div class="user-data"> -->
+<!-- 				<small>{{userModal.userAuthentication.rolEmpresaUsuario.empresa.descripcion}}</small> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+<!-- 		<div class="scroll-area sidenav"> -->
+<!-- 			<ul class="nav">				 -->
+<!-- 				<li class="has-icon" ng-class="{active:selected == 5}" -->
+<!-- 					ng-click="selected = 5"><a class="has-icon" -->
+<!-- 					ng-href="#encuestaCalidad"><i -->
+<!-- 						class="lineal lineal-stack-windows"></i>Encuestas de Calidad</a></li> -->
+<!-- 				<li class="has-icon" aria-hidden="true" -->
+<!-- 					ng-class="{active:selected == 2}" ng-click="selected = 2"><a -->
+<!-- 					class="has-icon" ng-href="#/motivo/lista"><i -->
+<!-- 						class="lineal lineal-doc"></i>ABM Motivos</a></li> -->
+<!-- 			</ul> -->
+
+<!-- 			<hr> -->
+
+<!-- 			<ul class="nav nav-secondary"> -->
+<!-- 				<li><a class="has-icon" href="#/comunicado/lista"><i -->
+<!-- 						class="lineal lineal-bell"></i> Notificaciones</a></li> -->
+<!-- 				<li class="has-icon" aria-hidden="true" -->
+<!-- 					ng-class="{active:selected == 6}" ng-click="selected = 6"><a -->
+<!-- 					class="has-icon" href=""><i class="lineal lineal-info-circle"></i> -->
+<!-- 						Contactos</a> -->
+<!-- 					<ul class="nav"> -->
+<!-- 						<li><a ng-href="#/contactoGire/lista"> Gire</a></li> -->
+<!-- 						<li><a ng-href="#/contacto/lista"> Clientes</a></li> -->
+<!-- 					</ul></li> -->
+
+<!-- 				<li><a class="has-icon" ng-href="#/pregunta/lista"><i -->
+<!-- 						class="lineal lineal-help-circle"></i> Preguntas frecuentes</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+
+<!-- 	</div> -->
+
+<!-- 	<ng-view> </ng-view> -->
+
+<!-- 	<script src="js/jquery.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/angular.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/bootstrap.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/ui-bootstrap.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/paginate-anything-tpls.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/messageDialog.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/fileinput.min.js"></script> -->
+<!-- 	<script src="util/convertDateInterceptor.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/userService.js" type="text/javascript"></script> -->
+<!-- 	<script src="main.js" type="text/javascript"></script> -->
+<!-- 	<script src="common-resources.js"></script> -->
+<!-- 	<script src="util/messagePregunta.js" type="text/javascript"></script> -->
+
+<!-- 	<script src="js/jquery.flot.min.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/jquery.flot.pie.min.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/jquery.flot.resize.min.js" type="text/javascript"></script> -->
+
+<!-- 	<script src="js/immutable.js" type="text/javascript"></script> -->
+<!-- 	<script src="parametrizacion/parametrizacion.js" type="text/javascript"></script> -->
+<!-- 	<script src="motivo/motivo.js" type="text/javascript"></script> -->
+<!-- 	<script src="pregunta/pregunta.js" type="text/javascript"></script> -->
+<!-- 	<script src="encuesta/encuestaCalidad.js" type="text/javascript"></script> -->
+<!-- 	<script src="comunicado/comunicado.js" type="text/javascript"></script> -->
+<!-- 	<script src="contacto/contacto.js" type="text/javascript"></script> -->
+
+
+
+<!-- </body> -->
+
+
+<!-- </html> -->
+
+<!-- <!doctype html> -->
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+<!-- <title>Mi GIRE</title> -->
+<!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+<!-- <link href="css/migire.css" rel="stylesheet"> -->
+<!-- <link href="css/sb-admin.css" rel="stylesheet"> -->
+
+
+<!-- <style type="text/css"> -->
+<!--  [ng\:cloak], [ng-cloak], .ng-cloak { */
+/* 	display: none !important; */
+/* } */
+<!-- </style> -->
+<!-- </head> -->
+
+<!-- <body ng-app="MiGire" > -->
+
+<!-- 	<div class="navbar-fixed-top"> -->
+
+<!-- 		<div class="navbar-header"> -->
+<!-- 			<a class="navbar-brand" style="color: #ffffff"> Gire Soluciones</a> -->
+<!-- 		</div> -->
+
+<!-- 		<ul class="nav navbar-right top-nav"> -->
+<!-- 			<li class="dropdown" style="cursor:pointer; cursor: hand"><a class="dropdown-toggle" -->
+<!-- 				data-toggle="dropdown"> <img src="img/notificacion.png" -->
+<!-- 					width="30px" height="20px"> <span class="badge" ng-bind="notification.notificaciones.length>0?notification.notificaciones.length:''"></span> -->
+<!-- 					<b class="caret"></b> -->
+<!-- 			</a> -->
+<!-- 				<ul class="dropdown-menu message-dropdown"> -->
+<!-- 					<li class="message-preview" -->
+<!-- 						ng-repeat="notificacion in notification.notificaciones"><a > -->
+<!-- 							<div> -->
+<!-- 								<div > -->
+<!-- 									<h5 > -->
+<!-- 										<strong>{{notificacion.titulo}} </strong> -->
+<!-- 									</h5> -->
+<!-- 									<p class="small text-muted"> -->
+									
+<!-- 										{{  (notificacion.tipo ==2 ? 'Vto: '  : '' ) +((notificacion.tipo ==2 ? notificacion.fechaVencimiento  : notificacion.fechaEnvio ) | date :  'dd/MM/yyyy') }} -->
+										
+<!-- 									</p> -->
+<!-- 									<p>{{notificacion.mensaje }}</p> -->
+									
+<!-- 									<button ng-if="!notificacion.confirmado" ng-class="'btn mr-10 '+ ((notificacion.tipo ==2) ? ' btn-secondary': ' btn-default') "  -->
+<!-- 									ng-click="notification.confirm(notificacion)"> -->
+<!-- 									{{notificacion.tipo ==2 ? 'Responder': 'Entendido' }} -->
+<!-- 									</button> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 					</a></li> -->
+
+<!-- 					<li class="message-footer text-center"><a -->
+<!-- 						href="#/notificacion/historial">VER HISTORIAL</a></li> -->
+
+<!-- 				</ul></li> -->
+
+<!-- 			<li style="cursor: pointer; cursor: hand"><a -->
+<!-- 				class="dropdown-toggle" data-toggle="dropdown"> <img -->
+<!-- 					src="img/user.png" width="30px" height="20px"> <b -->
+<!-- 					class="caret"></b> -->
+<!-- 			</a> -->
+<!-- 				<ul class="dropdown-menu dropdown-user"> -->
+<!-- 					<li ><a ng-bind="userModal.userAuthentication.rolEmpresaUsuario.usuarioAd.nombreApellido"> </a> -->
+<!-- 					</li> -->
+<!-- 					<li class="divider"></li> -->
+<!-- 					<li class="has-icon"><a href="logout"><i -->
+<!-- 							aria-hidden="true" class="lineal lineal-power"></i> Salir</a></li> -->
+<!-- 				</ul></li> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
+
+
+<!-- 	<div class="sidenav"> -->
+<!-- 		<div class="brand"></div> -->
+
+<!-- 		<div class="footer"> -->
+<!-- 			<div class="user-avatar"> -->
+<!-- 				<img ng-src="{{userModal.userAuthentication.logo}}"> -->
+
+<!-- 			</div> -->
+<!-- 			<div class="user-data"  > -->
+<!-- 				<small ng-bind="userModal.userAuthentication.rolEmpresaUsuario.empresa.descripcion"></small> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+<!-- 		<div class="scroll-area"> -->
+<!-- 			<ul class="nav"> -->
+<!-- 				<li ng-class="{active:selected == 2}" ng-click="selected = 2"><a -->
+<!-- 					class="has-icon" href="#/tramite/lista"><i -->
+<!-- 						class="lineal lineal-doc"></i> Mis trámites</a></li> -->
+<!-- 				<li class="has-icon" aria-hidden="true" -->
+<!-- 					ng-class="{active:selected == 1}" ng-click="selected = 1"><a -->
+<!-- 					class="has-icon" href=""><i class="lineal lineal-stack-windows"></i>TransmisiÃ³nde -->
+<!-- 						archivos</a> -->
+<!-- 					<ul class="nav"> -->
+<!-- 						<li><a ng-href="#archivos/subirArchivo">Tus archivos</a></li> -->
+<!-- 						<li><a ng-href="#archivos/gireDescargaArchivos">Gire -->
+<!-- 								archivos</a></li> -->
+<!-- 					</ul></li> -->
+<!-- 				<li class="has-icon" aria-hidden="true" -->
+<!-- 					ng-class="{active:selected == 3}" ng-click="selected = 3"><a -->
+<!-- 					class="has-icon" href="#/factura/estadoCuenta"><i -->
+<!-- 						class="lineal lineal-stack-windows"></i> Estado de Cuenta</a></li> -->
+<!-- 				<li ng-class="{active:selected == 4}" ng-click="selected = 4"><a -->
+<!-- 					class="has-icon" href="#/dashboard/principal"><i class="lineal lineal-bar-chart"></i> -->
+<!-- 						Dashboard</a></li> -->
+<!-- 			</ul> -->
+<!-- 			<hr> -->
+<!-- 			<ul class="nav nav-secondary"> -->
+<!-- 				<li ng-class="{active:selected == 6}" ng-click="selected = 6"><a -->
+<!-- 					class="has-icon" ng-href="#/pregunta/listaOpcion"><i -->
+<!-- 						class="lineal lineal-help-circle"></i> Preguntas frecuentes</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<ng-view> </ng-view> -->
+<!-- 	<script src="js/jquery.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/angular.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/bootstrap.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/ui-bootstrap.js" type="text/javascript"></script> -->
+<!-- 	<script src="js/immutable.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/paginate-anything-tpls.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/messageDialog.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/convertDateInterceptor.js" type="text/javascript"></script> -->
+<!-- 	<script src="notificacion/notificacionDialog.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/userService.js" type="text/javascript"></script> -->
+<!-- 	<script src="util/notificationService.js" type="text/javascript"></script> -->
+<!-- 	<script src="main.js" type="text/javascript"></script> -->
+<!-- 	<script src="archivos/transmisionDeArchivos.js" type="text/javascript"></script> -->
+<!-- 	<script src="notificacion/notificacion.js" type="text/javascript"></script> -->
+<!-- 	<script src="respuesta/respuesta.js" type="text/javascript"></script> -->
+<!-- 	<script src="dashboard/dashboard.js" type="text/javascript"></script> -->
+	
+<!-- 	<script src="common-resources.js" type="text/javascript"></script> -->
+
+<!-- 	<script src="factura/factura.js" type="text/javascript"></script> -->
+<!-- 	<script src="tramite/tramite.js" type="text/javascript"></script> -->
+<!-- 	<script src="preguntafront/preguntafront.js" type="text/javascript"></script> -->
+<!-- </body> -->
+<!-- </html> -->

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <title>Ingresar</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/genha.css" rel="stylesheet" />
+	<link href="css/login.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div tiles:fragment="content" class="container">
+    
+	  <h1 class="signin-title">CALARU</h1>
+
+      <form name="form" class="form-signin">
+        <h3 class="form-login-heading">Ingresar</h3>
+<!--         <div th:fi="${param.error}" class="alert alert-danger alert-dismissible" role="alert"> -->
+<!--         	<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar"> -->
+<!--         		<span aria-hidden="true">&times;</span> -->
+<!--        		</button> -->
+<!--         	Usuario y/o contrase&ntilde;a incorrectas -->
+<!-- 		</div> -->
+<!--         <div th:if="${param.logout}" class="alert alert-danger alert-dismissible" role="alert">  -->
+<!--         	<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar"> -->
+<!--         		<span aria-hidden="true">&times;</span> -->
+<!--        		</button> -->
+<!--         	Saliste de la aplicaci&oacute;n -->
+<!-- 		</div> -->
+        <label for="username" class="sr-only">Usuario</label>
+        <input ng-disabled="enterprises" name="username" type="text" id="inputText"
+                                   ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return"
+                                   required="required" class="form-control" placeholder="Ingrese Usuario"
+                                   ng-model="user.username">
+        <label for="password" class="sr-only">Password</label>
+        <input ng-disabled="enterprises" name="password" type="password" id="inputPassword"
+                                   ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return"  
+                                   required="required" class="form-control" placeholder="Ingrese Contrase&ntilde;a"
+                                   ng-model="user.password">
+         <input  class="btn btn-block btn-primary" value="Iniciar sesi&oacute;n" ng-click="user.authenticate()"
+                               ng-disabled="form.$invalid">
+                               
+                                <input  class="btn btn-block  btn-danger" value="Cancelar" ng-click="user.clear()"
+                              	 ng-show="enterprises">
+        
+      </form>
+ 		<div class="login-footer">&copy; 2016 CALARU SOLUCIONES S.A.</div>
+    </div>
+    <script type="text/javascript" src="css/jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="css/bootstrap.min.js"></script>
+  </body>
+</html>
+
+<!-- <div class="login"> -->
+<!-- 	<div class="container"> -->
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col-sm-4 col-sm-offset-8 col-md-5 col-md-offset-9"> -->
+<!-- 				<div class="panel"> -->
+<!-- 					<div class="panel-body"> -->
+<!-- 						<a href="#/loginAdmin" class="back"><i -->
+<!-- 					class="lineal lineal-arrow-left"></i>INGRESAR COMO ADMINISTRADOR</a> -->
+<!-- 						<form name="form"> -->
+<!-- 								<br/> -->
+<!-- 							<div class="alert alert-danger active" ng-show="user.error"> -->
+<!-- 									{{user.error}}</div> -->
+<!-- 							<br/> -->
+<!-- 							<div class="form-group"> -->
+<!--                                    <label for="inputText" class="sr-only">Texto</label> -->
+<!--                                    <input ng-disabled="enterprises" name="username" type="text" id="inputText" -->
+<!--                                    ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return" -->
+<!--                                    required="required" class="form-control" placeholder="Ingrese Usuario" -->
+<!--                                    ng-model="user.username"> -->
+<!--                                </div> -->
+
+<!--                                <div class="form-group"> -->
+<!--                                    <label for="inputPassword" class="sr-only">Contrase&ntilde;a</label> -->
+<!--                                    <input ng-disabled="enterprises" name="password" type="password" id="inputPassword" -->
+<!--                                    ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return"   -->
+<!--                                    required="required" class="form-control" placeholder="Ingrese Contrase&ntilde;a" -->
+<!--                                    ng-model="user.password"> -->
+                                   
+<!--                                    <select -->
+<!-- 										class="form-control" -->
+<!-- 										ng-show="enterprises" -->
+<!-- 										ng-model="user.enterpriseSelected" -->
+<!-- 										ng-required="enterprises" -->
+<!-- 										ng-options="enterprise.descripcion for enterprise in enterprises track by enterprise.id"> -->
+<!-- 										<option value="">--Seleccione una Empresa--</option> -->
+<!-- 									</select> <br></br> -->
+<!--                                </div> -->
+<!--                                <input  class="btn btn-block btn-primary" value="Iniciar sesi&oacute;n" ng-click="user.authenticate()" -->
+<!--                                ng-disabled="form.$invalid"> -->
+                               
+<!--                                 <input  class="btn btn-block  btn-danger" value="Cancelar" ng-click="user.clear()" -->
+<!--                               	 ng-show="enterprises"> -->
+<!-- 						</form> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+

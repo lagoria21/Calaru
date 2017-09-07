@@ -1,0 +1,87 @@
+<div class="app-content has-header has-subheader">
+
+	<div class="app-header1">
+			<div class="header">
+				<div class="container">
+					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>INGRESO STOCK</h1>	
+						<div class="actions">
+<!-- 					<a ng-href="#/ingresoStock/alta" class="btn btn-primary">Nuevo Ingreso de Stock</a> -->
+				</div>			
+				</div>
+			</div>
+		
+		</div>
+
+	<div class="app-section">
+		<div class="container">
+		
+		<form name="Form">
+		
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">EMAIL</label>
+			<div class="col-sm-10">
+			<input type="text" name="email" class="form-control"
+			ng-model="ctrl.ingreso.email"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">PASSWORD</label>
+			<div class="col-sm-10">
+			<input type="text" name="password" class="form-control"
+			ng-model="ctrl.ingreso.password"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">NOMBRE</label>
+			<div class="col-sm-10">
+			<input type="text" name="name" class="form-control"
+			ng-model="ctrl.ingreso.name"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">APELLIDO</label>
+			<div class="col-sm-10">
+			<input type="text" name="lastName" class="form-control"
+			ng-model="ctrl.ingreso.lastName"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">ACTIVO</label>
+			<div class="col-sm-10">
+			<input type="text" name="active" class="form-control"
+			ng-model="ctrl.ingreso.active"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		</form>
+		
+		<div class="text-right pt-20">
+			<a href="tramites-listado.html" class="btn btn-link mr-10"
+			ng-href="#/abmUsuarios/lista">Cancelar</a> <a
+			class="btn btn-primary" ng-disabled="!Form.$valid"
+			ng-click="ctrl.aceptar()">Confirmar</a>
+		</div>
+		
+		</div>
+
+	</div>
+</div>
+
+
+
+
+

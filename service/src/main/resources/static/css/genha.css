@@ -1,0 +1,81 @@
+@CHARSET "UTF-8";
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	/* 	background-color: #e0f0e4; */
+	background: #d2dac4;
+	background: -webkit-linear-gradient(left top, #d2dac4, #fffff7);
+	background: -o-linear-gradient(bottom right, #d2dac4, #fffff7);
+	background: -moz-linear-gradient(bottom right, #d2dac4, #fffff7);
+	background: linear-gradient(to bottom right, #d2dac4, #fffff7);
+}
+
+.navbar-default {
+	border-bottom-color: #487500;
+	background: #7BA833;
+	background: -webkit-linear-gradient(#7BA833, #487500);
+	background: -o-linear-gradient(#7BA833, #487500);
+	background: -moz-linear-gradient(#7BA833, #487500);
+	background: linear-gradient(#7BA833, #487500);
+}
+
+.navbar {
+	border-radius: 0px;
+	color: #fffff7;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fffff7;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 0 15px 0 15px;
+    font-size: 18px;
+    line-height: 20px;
+    background-color: #ecf4de;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus,
+	.navbar-default .navbar-nav>.active>a:hover {
+	color: #fffff7;
+	background-color: #2E5B00;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    background-color: #ecf4de;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #fffff7;
+}
+
+.navbar-default .navbar-text {
+	color: #fffff7;
+}
+
+.form-control:focus, textarea:focus, input[type="text"]:focus, input[type="password"]:focus,
+	input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus,
+	input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus,
+	input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus,
+	input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus,
+	input:focus, .uneditable-input:focus {
+	border-color: rgba(148, 193, 76, 0.8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px
+		rgba(148, 193, 76, 0.6);
+	outline: 0 none;
+}
+
+.panel-default > .panel-heading {
+    color: #333;
+	background: #FBFFED;
+	background: -webkit-linear-gradient(left top, #FFFFF2, #ECF4DE);
+	background: -o-linear-gradient(bottom right, #FFFFF2, #ECF4DE);
+	background: -moz-linear-gradient(bottom right, #FFFFF2, #ECF4DE);
+	background: linear-gradient(to bottom right, #FFFFF2, #ECF4DE);
+    border-color: #DDD;
+}

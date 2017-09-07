@@ -1,0 +1,81 @@
+<div class="app-content has-header has-subheader">
+
+	<div class="app-header1">
+			<div class="header">
+				<div class="container">
+					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>CONSULTAS</h1>	
+						<div class="actions">
+					
+				</div>			
+				</div>
+			</div>
+
+		<div class="subheader1">
+				<div class="container">				
+					<div class="switch-group">
+						<label class="switch">
+							<input type="text" name="options" id="search" autocomplete="off"> Filtro
+						</label>
+					</div>
+
+					<div id="form-search" class="form-group mt-10 mb-0">
+					    <div class="input-search">
+						  	<i class="lineal lineal-search"></i>
+							<input ng-model="ctrl.filtro.descripcion" class="form-control" placeholder="Ingrese Descripcion" ng-change="ctrl.cambioFiltro()" ng-model-options="{debounce: 500}">
+						</div>
+					</div>
+				
+					<div id="form-filters" class="form-inline mt-10">													
+					</div>
+				</div>
+									
+			</div>
+		
+		</div>
+
+	<div class="app-section">
+		<div class="container">
+		
+		<table class="table main-list">
+				<thead>
+					<tr>
+						<th class = "text-center">Codigo</th>
+						<th class = "text-center">Descripci&oacute;n</th>
+						<th class = "text-center">Precio unitario</th>
+						<th class = "text-center">Precio total</th>
+						<th class = "text-center">Stock minimo</th>
+						<th class = "text-center">Stock Actual</th>
+						<th class = "text-center">Descargar PDF</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="consulta in ctrl.consultaPager">
+						<td class = "text-center">{{consulta.codigo}}</td>
+						<td class = "text-center">{{consulta.descripcion}}</td>
+						<td class = "text-center">{{consulta.precioUnitario}}</td>
+						<td class = "text-center">{{consulta.precioTotal}}</td>
+						<td class = "text-center">{{consulta.stockMinimo}}</td>
+						<td class = "text-center">{{consulta.stockActual}}</td>
+						<td class = "text-center">
+						<a class="btn btn-icon btn-default btn-sm" ng-click="ctrl.pdf(consulta)" title="Descargar en PDF"><i class="lineal lineal-inbox"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	
+			<div class="text-right">
+				<bgf-pagination collection="ctrl.consultaPager" url="'consultaStock/page'" method="POST" post-data="ctrl.filtro" per-page="5" auto-presets="false" reload-page="ctrl.reloadPage" num-items="ctrl.totalItems">
+					</bgf-pagination>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+</script>

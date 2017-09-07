@@ -1,0 +1,55 @@
+
+<div class="login">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4 col-sm-offset-8 col-md-5 col-md-offset-9">
+				<div class="panel">
+					<div class="panel-body">
+						INGRESO COMO ADMINISTRADOR
+<!-- 						<img width="100%" src="img/gire.png" alt="Mi Gire"> -->
+						<form name="form">
+								<br/>
+							<div class="alert alert-danger active" ng-show="user.error">
+									{{user.error}}</div>
+							<br/>
+							<div class="form-group">
+                                   <label for="inputText" class="sr-only">Texto</label>
+                                   <input ng-disabled="enterprises" name="username" type="text" id="inputText"
+                                   ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return"
+                                   required="required" class="form-control" placeholder="Ingrese Usuario"
+                                   ng-model="user.username">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="inputPassword" class="sr-only">Contrase&ntilde;a</label>
+                                   <input ng-disabled="enterprises" name="password" type="password" id="inputPassword"
+                                   ng-keypress=" ($event.charCode==13 && !form.$invalid) ? user.authenticate() : return"  
+                                   required="required" class="form-control" placeholder="Ingrese Contrase&ntilde;a"
+                                   ng-model="user.password">
+                                   
+                                   <select
+										class="form-control"
+										ng-show="enterprises"
+										ng-model="user.enterpriseSelected"
+										ng-required="enterprises"
+										ng-options="enterprise.descripcion for enterprise in enterprises track by enterprise.id">
+										<option value="">--Seleccione una Empresa--</option>
+									</select> <br></br>
+                               </div>
+                               <input  class="btn btn-block btn-primary" value="Iniciar sesi&oacute;n" ng-click="user.authenticate()"
+                               ng-disabled="form.$invalid">
+                               
+                                <input  class="btn btn-block  btn-danger" value="Cancelar" ng-click="user.clear()"
+                              	 ng-show="enterprises">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

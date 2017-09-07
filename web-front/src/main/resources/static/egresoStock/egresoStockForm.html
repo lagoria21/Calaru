@@ -1,0 +1,117 @@
+<div class="app-content has-header has-subheader">
+
+	<div class="app-header1">
+			<div class="header">
+				<div class="container">
+					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>INGRESO STOCK</h1>	
+						<div class="actions">
+<!-- 					<a ng-href="#/ingresoStock/alta" class="btn btn-primary">Nuevo Ingreso de Stock</a> -->
+				</div>			
+				</div>
+			</div>
+		
+		</div>
+
+	<div class="app-section">
+		<div class="container">
+		
+		<form name="Form">
+		
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">CODIGO</label>
+			<div class="col-sm-10">
+			<input type="text" name="codigo" class="form-control"
+			ng-model="ctrl.ingreso.codigo"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">DESCRIPCION</label>
+			<div class="col-sm-10">
+			<input type="text" name="descripcion" class="form-control"
+			ng-model="ctrl.ingreso.descripcion"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">CANTIDAD</label>
+			<div class="col-sm-10">
+			<input type="text" name="cantidad" class="form-control"
+			ng-model="ctrl.ingreso.cantidad"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">FECHA DE INGRESO</label>
+			<div class="col-sm-10">
+			<input type="date" name="fechaIngreso" class="form-control"
+			ng-model="ctrl.ingreso.fechaIngreso"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">PROVEEDOR</label>
+			<div class="col-sm-10">
+			<input type="text" name="proveedor" class="form-control"
+			ng-model="ctrl.ingreso.proveedor"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">CUIT</label>
+			<div class="col-sm-10">
+			<input type="text" name="cuit" class="form-control"
+			ng-model="ctrl.ingreso.cuit"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">SECTOR</label>
+			<div class="col-sm-10">
+			<input type="text" name="sector" class="form-control"
+			ng-model="ctrl.ingreso.sector"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="form-group">
+			<label for="inputText" class="col-sm-1 control-label">UBICACION</label>
+			<div class="col-sm-10">
+			<input type="text" name="ubicacion" class="form-control"
+			ng-model="ctrl.ingreso.ubicacion"
+			placeholder="Ingrese un T&iacute;tulo ">
+			</div>
+		</div>
+		<br>
+		<br>
+		</form>
+		
+		<div class="text-right pt-20">
+			<a href="tramites-listado.html" class="btn btn-link mr-10"
+			ng-href="#/ingresoStock/lista">Cancelar</a> <a
+			class="btn btn-primary" ng-disabled="!Form.$valid"
+			ng-click="ctrl.aceptar()">Confirmar</a>
+		</div>
+		
+		</div>
+
+	</div>
+</div>
+
+
+
+
+

@@ -1,0 +1,179 @@
+<div class="app-content has-header has-subheader">
+
+	<div class="app-header1">
+		<div class="header">
+			<div class="container">
+				<h1 class="title">
+					<i aria-hidden="true" class="lineal lineal-stack-windows"></i>ORDEN
+					DE TRABAJO
+				</h1>
+				<div class="actions"></div>
+			</div>
+		</div>
+
+
+	</div>
+
+<div class="app-section">
+<div class="container">
+<form name="Form">
+
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label for="inputText" class="col-sm-2 control-label">SECTOR</label>
+					<div class="col-sm-10">
+						<input type="text" name="sector" class="form-control" ng-model="ctrl.orden.sector"
+							placeholder="Sector" style="width: 150px;"> 
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputText" class="col-sm-2 control-label">RESPONSABLE</label>
+					<div class="col-sm-10">
+						<input type="text" name="responsable" class="form-control" ng-model="ctrl.orden.responsable"
+							placeholder="Responsable" style="width: 150px;">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputText" class="col-sm-2 control-label">EQUIPO</label>
+					<div class="col-sm-10">
+						<input type="text" name="equipo" class="form-control" ng-model="ctrl.orden.equipo"
+							placeholder="Equipo" style="width: 150px;">
+					</div>
+				</div>
+
+				
+				<div class="form-group">
+					<label for="inputDate" class="col-sm-2 control-label">FECHA</label>
+					<div class="col-sm-6">
+						<input type="date" name="fecha" class="form-control" ng-model="ctrl.orden.fecha"
+							placeholder="Fecha" style="width: 150px;">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputText" class="col-sm-2 control-label">N ORDEN</label>
+					<div class="col-sm-10">
+						<input type="text" name="orden" class="form-control" ng-model="ctrl.orden.orden"
+							placeholder="Numero de Orden" style="width: 150px;"> 
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="textArea" class="col-sm-2 control-label">TAREAS A REALIZAR</label>
+					<div class="col-sm-10">
+						<textarea name="tarea" class="form-control" rows="3" ng-model="ctrl.orden.tarea"></textarea>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputText" class="col-sm-2 control-label">TIEMPO DE ESTIMACION</label>
+					<div class="col-sm-10">
+						<input type="text" name="tiempo" class="form-control" ng-model="ctrl.orden.tiempo"
+							placeholder="Tiempo de estimacion" style="width: 150px;"> 
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="textArea" class="col-sm-2 control-label">HERRAMIENTAS</label>
+					<div class="col-sm-10">
+						<textarea name="herramienta" class="form-control" rows="3" placeholder="Herramientas" ng-model="ctrl.orden.herramienta"></textarea>
+					</div>
+				</div>
+ 			   <div class="form-group">	
+						<span class="col-sm-2 control-label"></span>
+				        <div class="col-sm-10">
+	            			<div class="row">	            			
+				                <div class="col-md-10" ng-repeat="empresa in ctrl.empresas">
+				                    <div class="checkbox">
+				                        <label>
+										<button class="btn btn-info btn-block" ng-click="agregar(empresa)"> 
+				                            {{empresa.descripcion}}
+				                            </button>
+				                        </label>
+				                    </div>
+				                 
+								</div>
+				              </div>			                
+	                	</div>
+	             </div>
+	             
+	             			
+	           
+				
+</div>
+		<div class="span5">
+                <h3>INSUMOS</h3>
+        		</br>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="span1">Id</th>
+                            <th class="span5">Producto</th>
+                            <th class="span2">Cantidad</th>
+                            <th class="span2">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="well" ng-repeat="item in carrito">
+                            <td>{{item.empresas.id}}</td>
+                            <td>{{item.empresas.descripcion}}</td>
+                            <td>
+                                <input type="text" ng-model="item.Cantidad" />
+                            </td>
+                            <td>
+                           		<a class="btn btn-icon btn-default btn-sm" title="Eliminar" ng-click="ctrl.remove(item.empresas.id)"><i class="lineal lineal-delete"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+ 		</div>
+
+
+</form>
+</div>
+</div>
+		<div class="text-right pt-20">
+			<a href="tramites-listado.html" class="btn btn-link mr-10"
+			ng-href="#/pregunta/lista">Cancelar</a> <a
+			class="btn btn-primary" ng-disabled="!Form.$valid"
+			ng-click="ctrl.aceptar()">Confirmar</a>
+			 <a
+			class="btn btn-primary" ng-disabled="!Form.$valid"
+			ng-click="ctrl.pdf()">Imprimir</a>
+		</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	$("#form-search").hide();
+	$(".switch-group #search").click(function() {
+		$(this).parent().addClass("active");
+		$("#filters").parent().removeClass("active");
+		$("#form-search").show();
+		$("#form-filters").hide();
+	});
+	$(".switch-group #filters").click(function() {
+		$(this).parent().addClass("active");
+		$("#search").parent().removeClass("active");
+		$("#form-filters").show();
+		$("#form-search").hide();
+	});
+
+	$("td .checkbox").click(function() {
+		$(".subheader .options").toggleClass("open");
+	});
+	$(".options .close").click(function() {
+		$(".subheader .options").removeClass("open");
+	});
+
+	$('[data-toggle="popover"]').popover({
+		html : true,
+	});
+</script>
+
