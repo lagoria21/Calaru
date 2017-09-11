@@ -111,17 +111,19 @@
                         <tr>
                             <th class="span1">Id</th>
                             <th class="span5">Producto</th>
-                            <th class="span2">Cantidad</th>
+							<th class="span2">Cantidad a Usar</th>
+							<th class="span2">Cantidad Stock</th>
                             <th class="span2">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="well" ng-repeat="item in carrito">
                             <td>{{item.empresas.id}}</td>
-                            <td>{{item.empresas.descripcion}}</td>
+							<td>{{item.empresas.descripcion}}</td>
                             <td>
                                 <input type="text" ng-model="item.Cantidad" />
-                            </td>
+							</td>
+							<td>{{item.empresas.cantidadMaxima - item.Cantidad}}</td>
                             <td>
                            		<a class="btn btn-icon btn-default btn-sm" title="Eliminar" ng-click="ctrl.remove(item.empresas.id)"><i class="lineal lineal-delete"></i></a>
                             </td>
@@ -138,7 +140,7 @@
 			<a href="tramites-listado.html" class="btn btn-link mr-10"
 			ng-href="#/pregunta/lista">Cancelar</a> <a
 			class="btn btn-primary" ng-disabled="!Form.$valid"
-			ng-click="ctrl.aceptar()">Confirmar</a>
+			ng-click="aceptar(carrito)">Confirmar</a>
 			 <a
 			class="btn btn-primary" ng-disabled="!Form.$valid"
 			ng-click="ctrl.pdf()">Imprimir</a>

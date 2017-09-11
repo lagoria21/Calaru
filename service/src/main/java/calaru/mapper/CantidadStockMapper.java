@@ -11,7 +11,7 @@ public class CantidadStockMapper implements Mapper<IngresoStock, CantidadStockDt
 
    @Override
    public CantidadStockDto entityToDto(IngresoStock i) {
-	return new CantidadStockDto(i.getId(), i.getDescripcion(), i.getCantidad(), i.getCodigo());
+	return new CantidadStockDto(i.getId(), i.getDescripcion(), i.getCantidad(), i.getCodigo(), i.getCantidadMaxima());
 	}
 
 	@Override

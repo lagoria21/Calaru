@@ -23,8 +23,15 @@ miGire.config(function($routeProvider) {
 });
 
 
+miGire.factory('OrdenTrabajoResource', function($resource) {
+	return $resource('OrdenTrabajo/:id', {id: '@id', completo: true}, {
+		'update' : {method : 'PUT'}
+	});
+});
 
-miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas) {
+
+
+miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas,$http, $q) {
 	
 	var self = this;
 	self.orden = orden;
@@ -33,7 +40,7 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
 	
 	$scope.agregar = function (p) {
         var itemActual;
-
+        
         for (var i = 0; i < $scope.carrito.length; i++) {
             if ($scope.carrito[i].empresas.id == p.id) {
                 itemActual = $scope.carrito[i];
@@ -46,41 +53,55 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
                 Cantidad: 1
             });
         } else {
+        	
             itemActual.Cantidad++;
+            
         }
     }
-
 	
-/*	self.remove = function(ingreso) {
-		msgDialog.showMessage({
-			header: "Aviso", 
-			message: "No puede realizar la orden de trabajo porque no tiene stock suficiente", 
-			buttons:[
-			{label:"Si", action: function() {
-				IngresoStockResource.remove({id: ingreso.id}, function() {
-					self.reloadPage = true;
-				}, function(error) {
-					msgDialog.showMessage({header: "Error", message: error.statusText});
-				});
-			}},
-			{label:"No", action: function() {}}]
-		});
-	}
-	*/
-	self.aceptar = function() {
-			
-			self.empresas;
-			self.item;
+	$scope.aceptar = function(m){
 		
-			self.orden.$save(function(response) {
-				$location.path('/ingresoStock/lista');
+		var REST_SERVICE_URI = 'http://localhost:9090/front/OrdenTrabajo/';
+		
+		var deferred = $q.defer();
+		
+		for(var i = 0; i < $scope.carrito.length; i++){
+		
+		$scope.carrito[i].empresas.cantidad = $scope.carrito[i].Cantidad; 
+		
+			$http.put(REST_SERVICE_URI+$scope.carrito[i].empresas.id, $scope.carrito[i].empresas)
+            		.then(
+            				function (response) {
+            					deferred.resolve(response.data);
+            				},
+            				function(errResponse){
+            					console.error('Error no se pudo');
+            					deferred.reject(errResponse);
+            				}
+            		)
+	//  return deferred.promise;
+		}
+	};
+	      
+});	
+	/*	for (var i = 0; i < $scope.carrito.length; i++) {
+        if ($scope.carrito[i].Cantidad == 1) {
+        
+        	self.carrito.$save(function(response) {
+				$location.path('ingresoStock/lista');
 			}, function(error) {
 				if(error.data && error.data.valor)
-					msgDialog.showMessage({header: "Alta de ingreso de stock", message: error.data.valor});
-				else 
-				msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
-			});
+					msgDialog.showMessage({header: "Modificaci&oacuten Ingreso de stock", message: error.data.valor});
+				else
+					msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
+			})
+        
+        }
+    }/*
+
 	}
+
+
 	
 	
 	
@@ -110,3 +131,21 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
 	
 	
 });
+
+
+/*	self.remove = function(ingreso) {
+msgDialog.showMessage({
+	header: "Aviso", 
+	message: "No puede realizar la orden de trabajo porque no tiene stock suficiente", 
+	buttons:[
+	{label:"Si", action: function() {
+		IngresoStockResource.remove({id: ingreso.id}, function() {
+			self.reloadPage = true;
+		}, function(error) {
+			msgDialog.showMessage({header: "Error", message: error.statusText});
+		});
+	}},
+	{label:"No", action: function() {}}]
+});
+}
+*/
