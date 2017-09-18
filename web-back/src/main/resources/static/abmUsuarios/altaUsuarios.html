@@ -3,7 +3,7 @@
 	<div class="app-header1">
 			<div class="header">
 				<div class="container">
-					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>INGRESO STOCK</h1>	
+					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>INGRESO DE NUEVO USUARIO</h1>	
 						<div class="actions">
 <!-- 					<a ng-href="#/ingresoStock/alta" class="btn btn-primary">Nuevo Ingreso de Stock</a> -->
 				</div>			
@@ -22,7 +22,7 @@
 			<div class="col-sm-10">
 			<input type="text" name="email" class="form-control"
 			ng-model="ctrl.ingreso.email"
-			placeholder="Ingrese un T&iacute;tulo ">
+			placeholder="Ingrese un Email ">
 			</div>
 		</div>
 		<br>
@@ -32,7 +32,7 @@
 			<div class="col-sm-10">
 			<input type="text" name="password" class="form-control"
 			ng-model="ctrl.ingreso.password"
-			placeholder="Ingrese un T&iacute;tulo ">
+			placeholder="Ingrese una Password ">
 			</div>
 		</div>
 		<br>
@@ -42,7 +42,7 @@
 			<div class="col-sm-10">
 			<input type="text" name="name" class="form-control"
 			ng-model="ctrl.ingreso.name"
-			placeholder="Ingrese un T&iacute;tulo ">
+			placeholder="Ingrese un Nombre">
 			</div>
 		</div>
 		<br>
@@ -52,27 +52,34 @@
 			<div class="col-sm-10">
 			<input type="text" name="lastName" class="form-control"
 			ng-model="ctrl.ingreso.lastName"
-			placeholder="Ingrese un T&iacute;tulo ">
+			placeholder="Ingrese un Apellido ">
 			</div>
 		</div>
 		<br>
 		<br>
 		<div class="form-group">
+		<label for="inputText" class="col-sm-1 control-label">ESTADO</label>						
+			<select class="form-control" ng-model="ctrl.ingreso.active" title="Estado"
+      		ng-options="tipoEstado.descripcion for tipoEstado in ctrl.tipoEstado track by tipoEstado.active" style="width: 110px;">
+      		<option value="" disabled="true" selected>ESTADO</option>
+      		</select>      													
+		</div>	
+		<!--  <div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">ACTIVO</label>
 			<div class="col-sm-10">
 			<input type="text" name="active" class="form-control"
 			ng-model="ctrl.ingreso.active"
 			placeholder="Ingrese un T&iacute;tulo ">
 			</div>
-		</div>
+		</div>-->
 		<br>
 		<br>
 		</form>
 		
 		<div class="text-right pt-20">
 			<a href="tramites-listado.html" class="btn btn-link mr-10"
-			ng-href="#/abmUsuarios/lista">Cancelar</a> <a
-			class="btn btn-primary" ng-disabled="!Form.$valid"
+			ng-href="#/abmUsuarios/lista">Cancelar</a> 
+			<a ng-href="#/abmUsuarios/lista" class="btn btn-primary" ng-disabled="!Form.$valid"
 			ng-click="ctrl.aceptar()">Confirmar</a>
 		</div>
 		

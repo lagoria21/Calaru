@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,7 +29,9 @@ import calaru.model.IngresoStock_;
 import calaru.model.User;
 import calaru.model.User_;
 import calaru.model.Users;
+import calaru.model.Users_;
 import calaru.repository.UserRepository;
+import calaru.repository.UsersRepository;
 import calaru.util.pager.Paginator;
 import fj.data.Validation;
 
@@ -43,8 +48,20 @@ public class UsuariosController {
 	@Autowired 
 	UserRepository repo;
 	
+	@Autowired 
+	UsersRepository repos;
+	
 	@Autowired
 	Paginator paginador;
+	
+	@Autowired
+	public PasswordEncoder passwordEncoder;
+	
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public UserDto getIngreso(@PathVariable int id) {	
+		return listaUserMapper.entityToDto(repos.findOne(id));
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> postIngreso(@RequestBody UserDto userDto) {
@@ -64,6 +81,49 @@ public class UsuariosController {
 	}
 	
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody User users) {
+		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		
+		Validation<String, User> vppf = save(users);
+		if(vppf.isSuccess()) {
+			return new ResponseEntity<>(users, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<?> put(@PathVariable long id, @RequestBody User users) {
+		
+		UserDto dto;
+		
+		dto = getBuscar(users.getId());
+		
+		Validation<String, User> vppf = save(users);
+		if(vppf.isSuccess()) {
+			return new ResponseEntity<>(users, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
+		}
+	}
+
+	
+	public UserDto getBuscar(int id) {	
+		return listaUserMapper.entityToDto(repos.findOne(id));
+	}
+	
+	/*@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> deleteParamPrefondeo(@PathVariable long id) {
+		this.repo.delete(id);
+		return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+	}*/
+	
+	
+	
 	@RequestMapping(value = "/page")
 	public ResponseEntity<List<UserDto>> getPage(@RequestHeader(value = "Range") String strRange, @RequestBody FiltroUserDto filtro) {
 		return this.paginador.buildPage(Users.class,strRange, this.listaUserMapper::entityToDto,
@@ -75,7 +135,9 @@ public class UsuariosController {
 		
 		if (filtro != null) {
 			
-			if (filtro.getId() != null){
+			if(filtro.getName() != null){
+				p = builder.and(p, builder.like(root.get(Users_.name).as(String.class), filtro.name+"%"));
+			//(filtro.getId() != null){
 			//	p = builder.and(p, builder.equal(root.get(User_.id), filtro.getId()));
 				}
 			else{

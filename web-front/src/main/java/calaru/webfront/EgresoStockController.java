@@ -1,0 +1,12 @@
+package calaru.webfront;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/egresos")
+public class EgresoStockController {
+	
+	
+
+}

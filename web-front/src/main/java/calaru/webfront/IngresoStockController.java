@@ -58,10 +58,10 @@ public class IngresoStockController {
 //		mailService.enviar();
 //	}
 	
-//	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-//	public IngresoStockDto getIngreso(@PathVariable long id) {
-//		return ingresoStockMapper.entityToDto(repo.findOne(id));
-//	}
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public IngresoStockDto getIngreso(@PathVariable long id) {
+		return ingresoStockMapper.entityToDto(repo.findOne(id));
+	}
 	
 	
 	@RequestMapping(method = RequestMethod.POST)

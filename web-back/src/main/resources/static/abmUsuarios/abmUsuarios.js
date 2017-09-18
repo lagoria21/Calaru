@@ -6,23 +6,34 @@ miGire.config(function($routeProvider) {
 	$routeProvider.when('/abmUsuarios/lista', {
 		templateUrl : 'abmUsuarios/listaUsuario.html',
 		controller : 'UsuariosListaCtrl as ctrl'
+	}).when('/abmUsuarios/edicion/:id', {
+		templateUrl : 'abmUsuarios/altaUsuarios.html',
+		controller : 'UsuarioAltaFormCtrl as ctrl',
+		resolve : {
+			ingreso : function(UsuarioResource, $route) {
+				var id = $route.current.params['id'];
+				return UsuarioResource.get({id : id}).$promise;
+			},
+		}
 	}).when('/abmUsuarios/alta', {
 		templateUrl : 'abmUsuarios/altaUsuarios.html',
 		controller : 'UsuarioAltaFormCtrl as ctrl',
 		resolve : {
 			ingreso : function(UsuarioResource) {	return new UsuarioResource(); },			
 		}
-	});
-	
+	});	
 });
 
+miGire.factory('UsuarioResource', function($resource) {
+	return $resource('usuarios/:id', {id: '@id', completo: true}, {
+		'update' : {method : 'PUT'},
+		'deleteList' : {method : 'DELETE'}
+	});
+})
 
 miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log, $http){
 	var self = this;
 	self.ingreso = UsuarioResource.query();
-	
-	//self.endosos = ['NR','NP','R'];	 
-	//self.tipoProcesos = ['NR','NP','R'];
 	
 	self.filtro = {};
 	
@@ -46,33 +57,32 @@ miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log
 	self.toggleSeleccion = function(id) {
 		self.seleccionados = self.seleccionados.has(id) ? self.seleccionados.remove(id) : self.seleccionados.add(id);  
 	}
-	
-	
+		
 	
 	self.cantSeleccionados = function() {
 		return self.invertirSeleccion ? self.totalItems - self.seleccionados.size : self.seleccionados.size;
 	}
 
 	
-	/*self.removeList = function() {
-		$http.post('stock/eliminarLista', {filtro: self.filtro, ids: self.seleccionados.toArray(), invertir: self.invertirSeleccion}).then(
-				function(response) {
-					self.limpiarSeleccion();
-					self.reloadPage = true;
-				}, function(errorResp){
-					msgDialog.showMessage({header: "Error", message: errorResp.statusText});
-
-				});
-	}*/
-	
-	
-	/*self.remove = function(ingreso) {
+	self.remove = function(ingreso) {
+		
+		if(ingreso.active == 1){
+			ingreso.active =2;
+			var a = "INACTIVAR USUARIO";
+			var b = "¿Esta seguro que desea inactivar el Usuario?";
+		}
+		else{
+			ingreso.active =1;
+			var a = "ACTIVAR USUARIO";
+			var b = "¿Esta seguro que desea activar el Usuario?";
+		}
+		
 		msgDialog.showMessage({
-			header: "Producto", 
-			message: "¿Esta seguro que desea eliminar el Producto?", 
+			header: a, 
+			message: b,
 			buttons:[
 			{label:"Si", action: function() {
-				IngresoStockResource.remove({id: ingreso.id}, function() {
+				UsuarioResource.remove({id: ingreso.id}, function() {
 					self.reloadPage = true;
 				}, function(error) {
 					msgDialog.showMessage({header: "Error", message: error.statusText});
@@ -80,7 +90,7 @@ miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log
 			}},
 			{label:"No", action: function() {}}]
 		});
-	}*/
+	}
 	
 	
 });
@@ -90,20 +100,24 @@ miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $l
 	var self = this;
 	self.ingreso = ingreso;	
 	
+	self.tipoEstado = [{"active":1 , "descripcion":"ACTIVO"},{"active":2 , "descripcion":"INACTIVO"}];
 	
 	self.aceptar = function() {
 		if(self.ingreso.id) {
+			self.ingreso.active = self.ingreso.active.active;
 			self.ingreso.$update(function(response) {
-				$location.path('ingresoStock/lista');
+				$location.path('abmUsuarios/lista');
 			}, function(error) {
 				if(error.data && error.data.valor)
-					msgDialog.showMessage({header: "Modificaci&oacuten Ingreso de stock", message: error.data.valor});
+					msgDialog.showMessage({header: "Fallo la Modificaci&oacuten Del Usuario", message: error.data.valor});
 				else
 					msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
 			})
 		} else {
+			//self.ingreso.active = self.tipoEstado.active.active;
+			self.ingreso.active = self.ingreso.active.active;
 			self.ingreso.$save(function(response) {
-				$location.path('ingresoStock/lista');
+				$location.path('abmUsuarios/lista');
 			}, function(error) {
 				if(error.data && error.data.valor)
 					msgDialog.showMessage({header: "Alta de ingreso de stock", message: error.data.valor});

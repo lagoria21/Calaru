@@ -1,5 +1,5 @@
 miGire.factory('EgresoStockResource', function($resource) {
-	return $resource('egresoStock');
+	return $resource('egresos');
 });
 
 
@@ -11,15 +11,8 @@ miGire.config(function($routeProvider) {
 });
 
 
-//miGire.factory('EgresoStockResource', function($resource) {
-//	return $resource('stock/:id', {id: '@id', completo: true}, {
-//		'update' : {method : 'PUT'},
-//		'deleteList' : {method : 'DELETE'}
-//	});
-//});
-
-
 miGire.controller('EgresoStockListaCtrl', function(EgresoStockResource, msgDialog, $log, $http){
+	
 		
 });
 

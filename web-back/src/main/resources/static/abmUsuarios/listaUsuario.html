@@ -11,45 +11,28 @@
 			</div>
 
 		<div class="subheader1">
-				<div class="container">				
-					<div class="switch-group">
-						<label class="switch">
-							<input type="label" name="options" id="search" autocomplete="off" ng-model="switch"> Nombre
-						</label>
-
-					</div>
-
+				<div class="container">								
+					<span class="label label-sm label-success">Filtro por nombre</span>
 					<div id="form-search" class="form-group mt-10 mb-0">
 					    <div class="input-search">
 						  	<i class="lineal lineal-search"></i>
-							<input ng-model="ctrl.filtro.descripcion" class="form-control" placeholder="Ingrese Nombre" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
+							<input ng-model="ctrl.filtro.name" class="form-control" placeholder="Ingrese Nombre" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
 						</div>
-					</div>
-					
-				</div>
-				
-				<div class="options" ng-class="{'open':ctrl.cantSeleccionados() > 0}">
-				<button class="close" title="cerrar" ng-click="ctrl.limpiarSeleccion()">x</button>
-				<div class="container">
-					<p>{{ctrl.cantSeleccionados()}} elementos seleccionados</p>
-					<button class="btn btn-danger mr-10" ng-click="ctrl.removeList()"><i class="lineal lineal-cross"></i> Eliminar</button>
+					</div>					
 				</div>
 			</div>
-									
-			</div>
-		
 		</div>
-
 	<div class="app-section">
 		<div class="container">
 		
 		<table class="table main-list">
 				<thead>
 					<tr>
-						<th class = "text-center">Nombre</th>
-						<th class = "text-center">Apellido</th>
-						<th class = "text-center">Email</th>
-						<th class = "text-center">Activado</th>
+						<th class = "text-center">NOMBRE</th>
+						<th class = "text-center">APELLIDO</th>
+						<th class = "text-center">EMAIL</th>
+						<th class = "text-center">ESTADO</th>
+						<th class = "text-center">ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,15 +41,16 @@
 						<td class = "text-center">{{ingreso.name}}</td>
 						<td class = "text-center">{{ingreso.lastName}}</td>
 						<td class = "text-center">{{ingreso.email}}</td>
-						<td class = "text-center">{{ingreso.active}}</td>
-						 <td class = "text-center">
-							<a class="btn btn-icon btn-default btn-sm" ng-href="#/ingresoStock/edicion/{{ingreso.id}}" title="Editar"><i class="lineal lineal-edit"></i></a>
-							<a class="btn btn-icon btn-default btn-sm" title="Eliminar" ng-click="ctrl.remove(ingreso)"><i class="lineal lineal-delete"></i></a>
+						<td class = "text-center">
+							<span class="label label-sm label-success" ng-if="ingreso.active==1">Activo</span>
+							<span class="label label-sm label-default" ng-if="ingreso.active==2">Inactivo</span></td>
+						<td class = "text-center">
+							<a class="btn btn-primary" ng-href="#/abmUsuarios/edicion/{{ingreso.id}}" title="Editar">Editar</a>
+							<a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(ingreso)">Eliminar</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-<!-- <a href="javascript:generarPdf()">desacargar</a>			 -->
 	
 			<div class="text-right">
 				<bgf-pagination collection="ctrl.usuarioPager" url="'usuarios/page'" method="POST" post-data="ctrl.filtro" per-page="5" auto-presets="false" reload-page="ctrl.reloadPage" num-items="ctrl.totalItems">
@@ -78,33 +62,4 @@
 </div>
 
 
-
-<script type="text/javascript">
-
-
-		$("#form-search").hide();
-		$(".switch-group #search").click(function(){
-			$(this).parent().addClass("active");
-			$("#filters").parent().removeClass("active");
-			$("#form-search").show();
-			$("#form-filters").hide();
-		});
-		$(".switch-group #filters").click(function(){
-			$(this).parent().addClass("active");
-			$("#search").parent().removeClass("active");
-			$("#form-filters").show();
-			$("#form-search").hide();
-		});
-
-		$("td .checkbox").click(function() {  
-            $(".subheader .options").toggleClass("open"); 
-        });
-        $(".options .close").click(function() {  
-            $(".subheader .options").removeClass("open"); 
-        });
-        
-        $('[data-toggle="popover"]').popover({
-	      html : true, 
-	    });
-	</script>
 

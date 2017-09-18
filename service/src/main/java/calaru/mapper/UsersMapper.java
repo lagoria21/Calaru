@@ -32,10 +32,16 @@ public class UsersMapper implements Mapper<Users, UserDto>{
 	}
 	
 	@Override
-	public Users dtoToEntity(UserDto dto) {
+	public Users dtoToEntity(UserDto i) {
 		
+		Users entity = new Users();
+		entity.setId(i.getId());
+		entity.setEmail(i.getEmail());
+		entity.setName(i.getName());
+		entity.setLastName(i.getLastName());
+		entity.setActive(i.getActive());
 
-			return null;
+		return entity;
 	}
 
 }
