@@ -86,22 +86,18 @@
 				        <div class="col-sm-10">
 	            			<div class="row">	            			
 				                <div class="col-md-10" ng-repeat="empresa in ctrl.empresas">
-				                    <div class="checkbox">
+				                     <div class="checkbox">
 				                        <label>
-										<button class="btn btn-info btn-block" ng-click="agregar(empresa)"> 
-				                            {{empresa.descripcion}}
-				                            </button>
+											<button class="btn btn-info btn-block" ng-click="agregar(empresa)"> 
+				                            	{{empresa.descripcion}}
+				                        	</button>
 				                        </label>
 				                    </div>
-				                 
 								</div>
 				              </div>			                
 	                	</div>
 	             </div>
-	             
 	             			
-	           
-				
 </div>
 		<div class="span5">
                 <h3>INSUMOS</h3>
@@ -125,7 +121,7 @@
 							</td>
 							<td>{{item.empresas.cantidadMaxima - item.Cantidad}}</td>
                             <td>
-                           		<a class="btn btn-icon btn-default btn-sm" title="Eliminar" ng-click="ctrl.remove(item.empresas.id)"><i class="lineal lineal-delete"></i></a>
+                           		<a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(item.empresas.id)">ELIMINAR</a>
                             </td>
                         </tr>
                     </tbody>

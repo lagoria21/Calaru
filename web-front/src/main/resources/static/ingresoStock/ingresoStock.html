@@ -78,7 +78,7 @@
 						<th class = "text-center">Descripci&oacute;n</th>
 						<th class = "text-center">Cantidad</th>
 						<th class = "text-center">Sector</th>
-						<th class = "text-center">Ubicacion</th>
+						<th class = "text-center">Agregar </th>
 						<th class = "text-center">Acciones</th>
 					</tr>
 				</thead>
@@ -87,12 +87,13 @@
 						<td><div class="checkbox"><label><input ng-checked="!ctrl.seleccionados.has(ingreso.id) != !ctrl.invertirSeleccion" ng-click="ctrl.toggleSeleccion(ingreso.id)" type="checkbox"></label></div></td>
 						<td class = "text-center">{{ingreso.codigo}}</td>
 						<td class = "text-center">{{ingreso.descripcion}}</td>
-						<td class = "text-center">{{ingreso.cantidad}}</td>
+						<td class = "text-center">{{ingreso.cantidadMaxima}}</td>
 						<td class = "text-center">{{ingreso.sector}}</td>
-						<td class = "text-center">{{ingreso.ubicacion}}</td>
+						<td class = "text-center"><input type="text" class="form-control" ng-model="ingreso.ingresoProducto" placeholder="Ingrese Cantidad"></td>
 						<td class = "text-center">
-							<a class="btn btn-icon btn-default btn-sm" ng-href="#/ingresoStock/edicion/{{ingreso.id}}" title="Editar"><i class="lineal lineal-edit"></i></a>
-							<a class="btn btn-icon btn-default btn-sm" title="Eliminar" ng-click="ctrl.remove(ingreso)"><i class="lineal lineal-delete"></i></a>
+							<a class="btn btn-primary" ng-href="#/ingresoStock/edicion/{{ingreso.id}}" title="Editar">Editar</a>
+							<a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(ingreso)">Eliminar</a>
+							<a class="btn btn-secondary" title="Agregar" ng-click="ctrl.agregar(ingreso)">Agregar</a>
 						</td>
 					</tr>
 				</tbody>

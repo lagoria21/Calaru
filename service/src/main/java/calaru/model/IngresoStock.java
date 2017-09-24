@@ -53,7 +53,8 @@ public class IngresoStock {
 	@Column(name="precio_unitario")
 	private BigDecimal precioUnitario;
 	
-	
+	@Column(name="ingreso_producto")
+	private String ingresoProducto;
 	
 	
 	public IngresoStock() {
@@ -63,7 +64,7 @@ public class IngresoStock {
 
 	public IngresoStock(long id, String descripcion, int cantidad,
 			LocalDate fechaIngreso, String proveedor, int cuit, String sector,
-			String ubicacion, int codigo, int cantidadMinima, int cantidadMaxima, BigDecimal precioUnitario) {
+			String ubicacion, int codigo, int cantidadMinima, int cantidadMaxima, BigDecimal precioUnitario, String ingresoProducto) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -77,6 +78,7 @@ public class IngresoStock {
 		this.cantidadMinima = cantidadMinima;
 		this.cantidadMaxima = cantidadMaxima;
 		this.precioUnitario = precioUnitario;
+		this.ingresoProducto = ingresoProducto;
 	}
 
 	public long getId() {
@@ -93,6 +95,14 @@ public class IngresoStock {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getIngresoProducto() {
+		return ingresoProducto;
+	}
+
+	public void setIngresoProducto(String ingresoProducto) {
+		this.ingresoProducto = ingresoProducto;
 	}
 
 	public int getCantidad() {

@@ -8,15 +8,47 @@
 				</h1>
 			</div>
 		</div>
+		
 		<div class="subheader1">
-			<div class="container">
-				<div class="input-search">
-					<i class="lineal lineal-search"></i> <input class="form-control"
-						placeholder="Ingrese numero de orden"
-						ng-model="search.textoPregunta">
+				<div class="container">				
+					<div class="switch-group">
+						<label class="switch">
+							<input type="radio" name="options" id="search" autocomplete="off" ng-model="switch" ng-click="ctrl.limpiarFiltro();ctrl.cambioFiltro()"> Nombre
+						</label>
+						<label class="switch active">
+						    <input type="radio" name="options" id="filters" autocomplete="off" checked="" ng-model="switch" ng-click="ctrl.limpiarFiltro();ctrl.cambioFiltro()"> Filtros
+						</label>
+					</div>
+
+					<div id="form-search" class="form-group mt-10 mb-0">
+					    <div class="input-search">
+						  	<i class="lineal lineal-search"></i>
+							<input ng-model="ctrl.filtro.responsable" class="form-control" placeholder="Ingrese Nombre" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
+						</div>
+					</div>
+				
+					<div id="form-filters" class="form-inline mt-10">						
+						
+						<div class="input-search">
+						  	<i class="lineal lineal-search"></i>
+							<input type="date" ng-model="ctrl.filtro.fecha" class="form-control" placeholder="Ingrese Fecha" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
+							
+						</div>
+
+					</div>
+				</div>
+				
+				<div class="options" ng-class="{'open':ctrl.cantSeleccionados() > 0}">
+				<button class="close" title="cerrar" ng-click="ctrl.limpiarSeleccion()">x</button>
+				<div class="container">
+					<p>{{ctrl.cantSeleccionados()}} elementos seleccionados</p>
+					<button class="btn btn-danger mr-10" ng-click="ctrl.removeList()"><i class="lineal lineal-cross"></i> Eliminar</button>
 				</div>
 			</div>
-		</div>
+									
+			</div>
+		
+		
 	</div>
 	<div class="app-section">
 		<div class="container">
@@ -25,30 +57,28 @@
 				<thead>
 					<tr>
 						<th class="text-center">Codigo</th>
-						<th class="text-center">Descripci&oacute;n</th>
-						<th class="text-center">Cantidad</th>
+						<th class="text-center">Responsable</th>
+						<th class="text-center">Fecha</th>
+						<th class="text-center">Equipo</th>
+						<th class="text-center">Orden</th>
 						<th class="text-center">Sector</th>
-						<th class="text-center">Ubicacion</th>
+						<th class="text-center">Tarea</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="ingreso in ctrl.ingresoPager">
-						<td><div class="checkbox">
-								<label><input
-									ng-checked="!ctrl.seleccionados.has(ingreso.id) != !ctrl.invertirSeleccion"
-									ng-click="ctrl.toggleSeleccion(ingreso.id)" type="checkbox"></label>
-							</div></td>
-						<td class="text-center">{{ingreso.codigo}}</td>
-						<td class="text-center">{{ingreso.descripcion}}</td>
-						<td class="text-center">{{ingreso.cantidad}}</td>
-						<td class="text-center">{{ingreso.sector}}</td>
-						<td class="text-center">{{ingreso.ubicacion}}</td>
+					<tr ng-repeat="egreso in ctrl.egresoPager">
+						<td class="text-center">{{egreso.id}}</td>
+						<td class="text-center">{{egreso.responsable}}</td>
+						<td class="text-center">{{egreso.fecha | date:'dd/MM/yyyy'}}</td>
+						<td class="text-center">xxxxxxxxxx</td>
+						<td class="text-center">xxxxxxxxxx</td>
+						<td class="text-center">xxxxxxxxxx</td>
+						<td class="text-center">xxxxxxxxxx</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="text-right">
-				<bgf-pagination collection="ctrl.ingresoPager" url="'stock/page'"
-					method="POST" post-data="ctrl.filtro" per-page="5"
+				<bgf-pagination collection="ctrl.egresoPager" url="'egresos/page'" method="POST" post-data="ctrl.filtro" per-page="5"
 					auto-presets="false" reload-page="ctrl.reloadPage"
 					num-items="ctrl.totalItems"> </bgf-pagination>
 			</div>
@@ -56,7 +86,6 @@
 
 	</div>
 </div>
-
 
 
 <script type="text/javascript">

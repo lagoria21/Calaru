@@ -59,10 +59,16 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
         }
     }
 	
+	self.remove = function(idElemento)
+	{
+		var index = $scope.carrito.indexOf(idElemento);
+		$scope.carrito.splice(index,1);
+	}
+
+	
 	$scope.aceptar = function(m){
 		
-		var REST_SERVICE_URI = 'http://localhost:9090/front/OrdenTrabajo/';
-		
+		var REST_SERVICE_URI = 'http://localhost:9090/front/OrdenTrabajo/';	
 		var deferred = $q.defer();
 		
 		for(var i = 0; i < $scope.carrito.length; i++){
@@ -79,11 +85,12 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
             					deferred.reject(errResponse);
             				}
             		)
-	//  return deferred.promise;
 		}
 	};
 	      
 });	
+
+
 	/*	for (var i = 0; i < $scope.carrito.length; i++) {
         if ($scope.carrito[i].Cantidad == 1) {
         

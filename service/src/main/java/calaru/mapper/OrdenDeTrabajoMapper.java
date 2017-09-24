@@ -12,12 +12,16 @@ public class OrdenDeTrabajoMapper implements Mapper<OrdenDeTrabajo, OrdenDeTraba
 	@Override
 	public OrdenDeTrabajoDto entityToDto(OrdenDeTrabajo entity) {
 		
-		return null;
+		OrdenDeTrabajoDto dto = new OrdenDeTrabajoDto();
+		dto.setResponsable(entity.getResponsable());
+		dto.setId(entity.getId());
+		dto.setFecha(entity.getFecha());
+		
+		return dto;
 	}
 
 	@Override
-	public OrdenDeTrabajo dtoToEntity(OrdenDeTrabajoDto dto) {
-	
+	public OrdenDeTrabajo dtoToEntity(OrdenDeTrabajoDto dto) {	
 		return new OrdenDeTrabajo( dto.getId(),dto.getSector(), dto.getResponsable(), dto.getEquipo(), dto.getFecha(), dto.getOrden(), dto.getTarea(), dto.getTiempo(), dto.getHerramienta());
 	}
 

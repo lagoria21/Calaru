@@ -1,5 +1,6 @@
 package calaru.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class IngresoStockDto {
@@ -15,11 +16,12 @@ public class IngresoStockDto {
 	private int codigo;
 	private int cantidadMinima;
 	private int cantidadMaxima;
+	private BigDecimal precioUnitario;
 	
 	
 	public IngresoStockDto(long id, String descripcion, int cantidad,
 			LocalDate fechaIngreso, String proveedor, int cuit, String sector,
-			String ubicacion,int codigo, int cantidadMinima, int cantidadMaxima) {
+			String ubicacion,int codigo, int cantidadMinima, int cantidadMaxima, BigDecimal precioUnitario) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -32,6 +34,15 @@ public class IngresoStockDto {
 		this.codigo = codigo;
 		this.cantidadMinima = cantidadMinima;
 		this.cantidadMaxima = cantidadMaxima;
+		this.precioUnitario = precioUnitario;
+	}
+
+	public BigDecimal getPrecioUnitario() {
+		return precioUnitario;
+	}
+
+	public void setPrecioUnitario(BigDecimal precioUnitario) {
+		this.precioUnitario = precioUnitario;
 	}
 
 	public IngresoStockDto() {

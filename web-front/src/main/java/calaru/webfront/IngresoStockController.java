@@ -88,6 +88,23 @@ public class IngresoStockController {
 			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
 		}
 	}
+	
+	@RequestMapping(value = "/agregar/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> putAgregar(@PathVariable long id, @RequestBody IngresoStock ingresoStock) {
+		
+		int e = Integer.parseInt(ingresoStock.getIngresoProducto());
+		int suma = e + ingresoStock.getCantidadMaxima();
+		
+		ingresoStock.setCantidadMaxima(suma);
+		
+		Validation<String, IngresoStock> vppf = save(ingresoStock);
+		if(vppf.isSuccess()) {
+			return new ResponseEntity<>(ingresoStock, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
+		}
+	}
 		
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

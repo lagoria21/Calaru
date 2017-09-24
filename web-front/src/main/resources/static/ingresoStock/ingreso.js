@@ -34,9 +34,10 @@ miGire.factory('IngresoStockResource', function($resource) {
 });
 
 
-miGire.controller('IngresoStockListaCtrl', function(IngresoStockResource, msgDialog, $log, $http){
+miGire.controller('IngresoStockListaCtrl', function(IngresoStockResource, msgDialog, $log, $http, $q){
 	var self = this;
 	self.ingreso = IngresoStockResource.query();
+	
 	
 	self.endosos = ['NR','NP','R'];	 
 	self.tipoProcesos = ['NR','NP','R'];
@@ -99,6 +100,25 @@ miGire.controller('IngresoStockListaCtrl', function(IngresoStockResource, msgDia
 		});
 	}
 	
+	
+	self.agregar = function(ingreso) {
+		
+	var REST_SERVICE_URI = 'http://localhost:9090/front/stock/agregar/';		
+	var deferred = $q.defer();
+		
+			$http.put(REST_SERVICE_URI+ingreso.id, ingreso)
+            		.then(
+            				function (response) {
+            					deferred.resolve(response.data);
+            					self.reloadPage = true;
+            				},
+            				function(errResponse){
+            					console.error('Error no se pudo agregar el producto');
+            					deferred.reject(errResponse);
+            				}
+            		)
+		
+	};
 });
 
 
