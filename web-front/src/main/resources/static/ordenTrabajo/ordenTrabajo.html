@@ -16,30 +16,36 @@
 
 <div class="app-section">
 <div class="container">
-<form name="Form">
+<form name="form">
 
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label for="inputText" class="col-sm-2 control-label">SECTOR</label>
 					<div class="col-sm-10">
-						<input type="text" name="sector" class="form-control" ng-model="ctrl.orden.sector"
-							placeholder="Sector" style="width: 150px;"> 
+						<input type="text" name="sector" class="form-control" ng-model="ctrl.orden.sector" placeholder="Sector" style="width: 150px;" required>
+						<span ng-messages="form.sector.$error" ng-show="form.sector.$dirty" style="color: maroon" role="alert">
+						<span ng-message="required">Campo requerido</span>
+						</span> 
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="inputText" class="col-sm-2 control-label">RESPONSABLE</label>
 					<div class="col-sm-10">
-						<input type="text" name="responsable" class="form-control" ng-model="ctrl.orden.responsable"
-							placeholder="Responsable" style="width: 150px;">
+						<input type="text" name="responsable" class="form-control" ng-model="ctrl.orden.responsable" placeholder="Responsable" style="width: 150px;" required>
+						<span ng-messages="form.responsable.$error" ng-show="form.responsable.$dirty" style="color: maroon" role="alert">
+						<span ng-message="required">Campo requerido</span>
+						</span>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="inputText" class="col-sm-2 control-label">EQUIPO</label>
 					<div class="col-sm-10">
-						<input type="text" name="equipo" class="form-control" ng-model="ctrl.orden.equipo"
-							placeholder="Equipo" style="width: 150px;">
+						<input type="text" name="equipo" class="form-control" ng-model="ctrl.orden.equipo" placeholder="Equipo" style="width: 150px;" required>
+						<span ng-messages="form.equipo.$error" ng-show="form.equipo.$dirty" style="color: maroon" role="alert">
+						<span ng-message="required">Campo requerido</span>
+						</span>
 					</div>
 				</div>
 
@@ -47,8 +53,10 @@
 				<div class="form-group">
 					<label for="inputDate" class="col-sm-2 control-label">FECHA</label>
 					<div class="col-sm-6">
-						<input type="date" name="fecha" class="form-control" ng-model="ctrl.orden.fecha"
-							placeholder="Fecha" style="width: 150px;">
+						<input type="text" name="fecha" class="form-control" ng-model="ctrl.orden.fecha" placeholder="Fecha" style="width: 150px;" required readonly="readonly">
+						<span ng-messages="form.fecha.$error" ng-show="form.fecha.$dirty" style="color: maroon" role="alert">
+						<span ng-message="required">Campo requerido</span>
+						</span>
 					</div>
 				</div>
 				
@@ -133,20 +141,10 @@
 </div>
 </div>
 		<div class="text-right pt-20">
-			<a href="tramites-listado.html" class="btn btn-link mr-10"
-			ng-href="#/pregunta/lista">Cancelar</a> <a
-			class="btn btn-primary" ng-disabled="!Form.$valid"
-			ng-click="aceptar(carrito)">Confirmar</a>
-			 <a
-			class="btn btn-primary" ng-disabled="!Form.$valid"
-			ng-click="ctrl.pdf()">Imprimir</a>
+			<a href="#/pregunta/lista" class="btn btn-link mr-10" ng-href="#/pregunta/lista">Cancelar</a> 
+			<a class="btn btn-primary" ng-disabled="!form.$valid" ng-click="aceptar(carrito)">Confirmar</a>
+			<a class="btn btn-primary" ng-disabled="!form.$valid" ng-click="ctrl.pdf()">Imprimir</a>
 		</div>
-
-
-
-
-
-
 
 <script type="text/javascript">
 	$("#form-search").hide();

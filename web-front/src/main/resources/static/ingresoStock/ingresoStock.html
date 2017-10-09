@@ -24,23 +24,23 @@
 					<div id="form-search" class="form-group mt-10 mb-0">
 					    <div class="input-search">
 						  	<i class="lineal lineal-search"></i>
-							<input ng-model="ctrl.filtro.descripcion" class="form-control" placeholder="Ingrese Nombre" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
+							<input ng-model="ctrl.filtro.descripcion" class="form-control" placeholder="Ingrese Descripci&oacute;n" ng-change="ctrl.cambioFiltro()"  ng-model-options="{debounce: 500}">
 						</div>
 					</div>
 				
 					<div id="form-filters" class="form-inline mt-10">						
 						<div class="form-group">
 					
-							 <select class="form-control" ng-model="ctrl.filtro.endoso" title="endoso" ng-change="ctrl.cambioFiltro()"
-      								ng-options="endoso for endoso in ctrl.endosos" style="width: 110px;">
+							 <select class="form-control" ng-model="ctrl.filtro.ubicacion" title="endoso" ng-change="ctrl.cambioFiltro()"
+      								ng-options="ubicacion for ubicacion in ctrl.ubicacion" style="width: 110px;">
       								<option value="" disabled="true" selected>Ubicacion</option>
       						  </select>
       						  	      								
 						</div>
 
 						<div class="form-group">						
-							 <select class="form-control" ng-model="ctrl.filtro.tipoProceso" title="tipoProceso" ng-change="ctrl.cambioFiltro()"
-      								ng-options="tipoProceso for tipoProceso in ctrl.tipoProcesos" style="width: 110px;">
+							 <select class="form-control" ng-model="ctrl.filtro.sector" title="tipoProceso" ng-change="ctrl.cambioFiltro()"
+      								ng-options="sector for sector in ctrl.sector" style="width: 110px;">
       								<option value="" disabled="true" selected>Sector</option>
       						 </select>      													
 						</div>								
@@ -78,6 +78,7 @@
 						<th class = "text-center">Descripci&oacute;n</th>
 						<th class = "text-center">Cantidad</th>
 						<th class = "text-center">Sector</th>
+						<th class = "text-center">Ubicacion</th>
 						<th class = "text-center">Agregar </th>
 						<th class = "text-center">Acciones</th>
 					</tr>
@@ -89,6 +90,7 @@
 						<td class = "text-center">{{ingreso.descripcion}}</td>
 						<td class = "text-center">{{ingreso.cantidadMaxima}}</td>
 						<td class = "text-center">{{ingreso.sector}}</td>
+						<td class = "text-center">{{ingreso.ubicacion}}</td>
 						<td class = "text-center"><input type="text" class="form-control" ng-model="ingreso.ingresoProducto" placeholder="Ingrese Cantidad"></td>
 						<td class = "text-center">
 							<a class="btn btn-primary" ng-href="#/ingresoStock/edicion/{{ingreso.id}}" title="Editar">Editar</a>

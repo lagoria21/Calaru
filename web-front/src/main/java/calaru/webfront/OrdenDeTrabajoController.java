@@ -3,6 +3,7 @@ package calaru.webfront;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import calaru.dto.OrdenDeTrabajoDto;
 import calaru.dto.Texto;
@@ -43,25 +45,26 @@ public class OrdenDeTrabajoController {
 	}
 	
 	
-/*	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> postIngreso(@RequestBody OrdenDeTrabajoDto ordenDeTrabajoDto) {
+		
 		Validation<String, OrdenDeTrabajo> vm = this.save(ordenTrabajoMapper.dtoToEntity(ordenDeTrabajoDto));
 		if(vm.isSuccess()) {
 			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setLocation(
-					ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vm.success().getId()).toUri());
+			httpHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(vm.success().getId()).toUri());
 			return new ResponseEntity<>(ordenTrabajoMapper.entityToDto(vm.success()), httpHeaders, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<Texto>(new Texto(vm.fail()), HttpStatus.CONFLICT);
 		}
 	}
-	*/
-	private Validation<String, IngresoStock> save(IngresoStock ordenDeTrabajo) {
-		return Validation.success(repos.save(ordenDeTrabajo));
+	
+	
+	private Validation<String, OrdenDeTrabajo> save(OrdenDeTrabajo ordenDeTrabajo) {
+		return Validation.success(repo.save(ordenDeTrabajo));
 	}
 	
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+/*	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody IngresoStock ingresoStock) {
 		
@@ -76,5 +79,5 @@ public class OrdenDeTrabajoController {
 			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
 		}
 	}
-
+*/
 }

@@ -15,125 +15,153 @@
 	<div class="app-section">
 		<div class="container">
 		
-		<form name="Form">
-		
+		<form name="form">	
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CODIGO</label>
 			<div class="col-sm-10">
-			<input type="text" name="codigo" class="form-control"
-			ng-model="ctrl.ingreso.codigo"
-			placeholder="Ingrese un T&iacute;tulo ">
+			<input type="text" name="codigo" class="form-control" ng-model="ctrl.ingreso.codigo" placeholder="Ingrese Codigo" required>
+			<span ng-messages="form.codigo.$error" ng-show="form.codigo.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">DESCRIPCION</label>
 			<div class="col-sm-10">
-			<input type="text" name="descripcion" class="form-control"
-			ng-model="ctrl.ingreso.descripcion"
-			placeholder="Ingrese un T&iacute;tulo ">
+			<input type="text" name="descripcion" class="form-control" ng-model="ctrl.ingreso.descripcion" placeholder="Ingrese Descripci&oacute;n" required>
+			<span ng-messages="form.descripcion.$error" ng-show="form.descripcion.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CANTIDAD</label>
-			<div class="col-sm-10">
-			<input type="text" name="cantidad" class="form-control"
-			ng-model="ctrl.ingreso.cantidad"
-			placeholder="Ingrese un T&iacute;tulo ">
+			<div class="col-sm-10" ng-class="{'has-error': form.cantidad.$invalid && form.cantidad.$dirty}">
+			<input type="text" name="cantidad" class="form-control"	ng-model="ctrl.ingreso.cantidad" ng-pattern="/^[0-9]+$/" placeholder="Ingrese Cantidad" required>
+			<span ng-messages="form.cantidad.$error" ng-show="form.cantidad.$dirty" style="color: maroon" role="alert"> 
+			        <span ng-message="required">Campo requerido.</span>
+					<span ng-message="pattern">Caracter no valido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">FECHA DE INGRESO</label>
 			<div class="col-sm-10">
-			<input type="date" name="fechaIngreso" class="form-control"
-			ng-model="ctrl.ingreso.fechaIngreso"
-			placeholder="Ingrese un T&iacute;tulo" value="" id="datePicker">
+			<input type="text" name="fechaIngreso" class="form-control"	ng-model="ctrl.ingreso.fechaIngreso" placeholder="Ingrese Fecha de Ingreso" readonly="readonly" required>
+			<span ng-messages="form.fechaIngreso.$error" ng-show="form.fechaIngreso.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">PROVEEDOR</label>
 			<div class="col-sm-10">
-			<input type="text" name="proveedor" class="form-control"
-			ng-model="ctrl.ingreso.proveedor"
-			placeholder="Ingrese un T&iacute;tulo ">
+			<input type="text" name="proveedor" class="form-control" ng-model="ctrl.ingreso.proveedor" placeholder="Ingrese Proveedor" required>
+			<span ng-messages="form.proveedor.$error" ng-show="form.proveedor.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CUIT</label>
 			<div class="col-sm-10">
-			<input type="text" name="cuit" class="form-control"
-			ng-model="ctrl.ingreso.cuit"
-			placeholder="Ingrese un T&iacute;tulo ">
+			<input type="text" name="cuit" class="form-control"	ng-model="ctrl.ingreso.cuit" ng-pattern="/^[0-9]+$/" placeholder="Ingrese CUIT" required>
+			<span ng-messages="form.cuit.$error" ng-show="form.cuit.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+				<span ng-message="pattern">Caracter no valido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">SECTOR</label>
-			<div class="col-sm-10">
-			
-			<select class="form-control" ng-model="ctrl.ingreso.sector" title="endoso"
-      			ng-options="endoso for endoso in ctrl.endosos" style="width: 110px;">
-      			<option value="" disabled="true" selected>Ubicacion</option>
+			<div class="col-sm-10">		
+			<select class="form-control" required ng-model="ctrl.ingreso.sector" title="endoso"
+      			ng-options="sector for sector in ctrl.sector" style="width: 110px;">
+      			<option value="" disabled="true" selected>sector</option>
       		</select>
-			
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">UBICACION</label>
 			<div class="col-sm-10">
-			<input type="text" name="ubicacion" class="form-control"
-			ng-model="ctrl.ingreso.ubicacion"
-			placeholder="Ingrese un T&iacute;tulo ">
+			 <select class="form-control" ng-model="ctrl.ingreso.ubicacion" title="Ubicacion" ng-change="ctrl.cambioFiltro()"
+      					ng-options="ubicacion for ubicacion in ctrl.ubicacion" style="width: 110px;">
+      					<option value="" disabled="true" selected>Ubicacion</option>
+      		</select>
+			<!--<input type="text" name="ubicacion" class="form-control" ng-model="ctrl.ingreso.ubicacion" placeholder="Ingrese ubicacion" required>-->
+			<span ng-messages="form.ubicacion.$error" ng-show="form.ubicacion.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CANTIDAD MAXIMA</label>
 			<div class="col-sm-10">
-			<input type="text" name="cantidadMaxima" class="form-control"
-			ng-model="ctrl.ingreso.cantidadMaxima"
-			placeholder="Ingrese la cantidad maxima ">
+			<input type="text" name="cantidadMaxima" class="form-control" ng-model="ctrl.ingreso.cantidadMaxima" ng-pattern="/^[0-9]+$/" placeholder="Ingrese la cantidad maxima" required>
+			<span ng-messages="form.cantidadMaxima.$error" ng-show="form.cantidadMaxima.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+				<span ng-message="pattern">Caracter no valido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CANTIDAD MINIMA</label>
 			<div class="col-sm-10">
-			<input type="text" name="cantidadMinima" class="form-control"
-			ng-model="ctrl.ingreso.cantidadMinima"
-			placeholder="Ingrese la cantidad minima ">
+			<input type="text" name="cantidadMinima" class="form-control" ng-model="ctrl.ingreso.cantidadMinima" ng-pattern="/^[0-9]+$/" placeholder="Ingrese la cantidad minima" required>
+			<span ng-messages="form.cantidadMinima.$error" ng-show="form.cantidadMinima.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+				<span ng-message="pattern">Caracter no valido</span>
+			</span>
 			</div>
 		</div>
+		<br>
 		<br>
 		<br>
 			<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">PRECIO UNITARIO</label>
 			<div class="col-sm-10">
-			<input type="text" name="cantidad" class="form-control"
-			ng-model="ctrl.ingreso.precioUnitario"
-			placeholder="Ingrese un precio unitario ">
+			<input type="text" name="precioUnitario" class="form-control" ng-model="ctrl.ingreso.precioUnitario" ng-pattern="/^[0-9.]+$/" placeholder="Ingrese un precio unitario" required>
+			<span ng-messages="form.precioUnitario.$error" ng-show="form.precioUnitario.$dirty" style="color: maroon" role="alert">
+				<span ng-message="required">Campo requerido</span>
+				<span ng-message="pattern">Caracter no valido</span>
+			</span>
 			</div>
 		</div>
+		<br>
+		<br>
 		</form>
 		
 		<div class="text-right pt-20">
-			<a href="tramites-listado.html" class="btn btn-link mr-10"
+			<a href="#/ingresoStock/lista" class="btn btn-link mr-10"
 			ng-href="#/ingresoStock/lista">Cancelar</a> <a
-			class="btn btn-primary" ng-disabled="!Form.$valid"
+			class="btn btn-primary" ng-disabled="!form.$valid"
 			ng-click="ctrl.aceptar()">Confirmar</a>
 		</div>
 		
@@ -146,7 +174,7 @@
 
 $(document).ready( function() {
     var now = new Date();
-    var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
-    $('#datePicker').val(today);
+   // var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+    $('#datePicker').val(now);
 });
 </script>

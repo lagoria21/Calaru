@@ -65,7 +65,9 @@ public class UsuariosController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> postIngreso(@RequestBody UserDto userDto) {
+		
 		Validation<String, User> vm = this.save(altaUserMapper.dtoToEntity(userDto));
+		
 		if(vm.isSuccess()) {
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setLocation(
@@ -94,7 +96,30 @@ public class UsuariosController {
 		}
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/modificaEstado/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<?> putAgregar(@PathVariable long id, @RequestBody User users) {
+		
+		User user = repo.findById(users.getId());
+		user.setActive(users.getActive());
+		
+	/*	if(users.getActive() == 1){
+			users.setActive(2);
+		}
+		else{
+			users.setActive(1);
+		}
+		*/
+		
+		Validation<String, User> vppf = save(user);
+		if(vppf.isSuccess()) {
+			return new ResponseEntity<>(users, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
+		}
+	}
+	
+	/*@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<?> put(@PathVariable long id, @RequestBody User users) {
 		
@@ -108,7 +133,7 @@ public class UsuariosController {
 		} else {
 			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
 		}
-	}
+	}*/
 
 	
 	public UserDto getBuscar(int id) {	

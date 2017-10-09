@@ -39,8 +39,8 @@ miGire.controller('IngresoStockListaCtrl', function(IngresoStockResource, msgDia
 	self.ingreso = IngresoStockResource.query();
 	
 	
-	self.endosos = ['NR','NP','R'];	 
-	self.tipoProcesos = ['NR','NP','R'];
+	self.sector = ['NR','NP','R'];	 
+	self.ubicacion = ['A','B','C'];
 	
 	self.filtro = {};
 	
@@ -122,16 +122,19 @@ miGire.controller('IngresoStockListaCtrl', function(IngresoStockResource, msgDia
 });
 
 
-miGire.controller('IngresoStockFormCtrl', function($scope, ingreso, msgDialog, $location) {
+miGire.controller('IngresoStockFormCtrl', function($scope, ingreso, msgDialog, $location, $filter) {
+	
 	var self = this;
 	self.ingreso = ingreso;	
+	self.ingreso.fechaIngreso = $filter('date')(Date.now(), 'dd/MM/yyyy');
 	
-	self.endosos = ['NR','NP','R'];	 
-	self.tipoProcesos = ['NR','NP','R'];
+	self.sector = ['NR','NP','R'];	 
+	self.ubicacion = ['A','B','C'];
 	
 	
 	self.aceptar = function() {
 		if(self.ingreso.id) {
+			ingreso.fechaIngreso = new Date(self.ingreso.fechaIngreso);
 			self.ingreso.$update(function(response) {
 				$location.path('ingresoStock/lista');
 			}, function(error) {
@@ -140,7 +143,8 @@ miGire.controller('IngresoStockFormCtrl', function($scope, ingreso, msgDialog, $
 				else
 					msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
 			})
-		} else {
+		} else {			
+			ingreso.fechaIngreso = new Date(self.ingreso.fechaIngreso);
 			self.ingreso.$save(function(response) {
 				$location.path('ingresoStock/lista');
 			}, function(error) {

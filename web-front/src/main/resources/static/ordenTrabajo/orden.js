@@ -31,10 +31,11 @@ miGire.factory('OrdenTrabajoResource', function($resource) {
 
 
 
-miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas,$http, $q) {
+miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas,$http, $q,$filter) {
 	
 	var self = this;
 	self.orden = orden;
+	self.orden.fecha = $filter('date')(Date.now(), 'dd/MM/yyyy');
 	self.empresas = empresas;
 	$scope.carrito = [];
 	

@@ -1,5 +1,7 @@
 package calaru.webfront;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -66,6 +68,7 @@ public class IngresoStockController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> postIngreso(@RequestBody IngresoStockDto ingresoStockDto) {
+		
 		Validation<String, IngresoStock> vm = this.save(ingresoStockMapper.dtoToEntity(ingresoStockDto));
 		if(vm.isSuccess()) {
 			HttpHeaders httpHeaders = new HttpHeaders();
@@ -149,6 +152,14 @@ public class IngresoStockController {
 			else{
 				if (filtro.getDescripcion() != null){
 				p = builder.and(p, builder.like(root.get(IngresoStock_.descripcion).as(String.class), filtro.getDescripcion()+"%"));}
+				
+				if (filtro.getSector() != null) {
+					p = builder.and(p, builder.equal(root.get("sector"), filtro.getSector()));
+				}
+				
+				if (filtro.getUbicacion() != null) {
+					p = builder.and(p, builder.equal(root.get("ubicacion"), filtro.getUbicacion()));
+				}
 			}
 		}
 		return p;
@@ -160,17 +171,21 @@ public class IngresoStockController {
 		private Long id;
 		private String descripcion;
 		private int cantidad;
+		private String sector;
+		private String ubicacion;
 
 		
 		public FiltroIngresoStockDto(){
 			super();
 		}
 		
-		public FiltroIngresoStockDto(Long id, String descripcion, int cantidad) {
+		public FiltroIngresoStockDto(Long id, String descripcion, int cantidad, String sector, String ubicacion) {
 			super();
 			this.id = id;
 			this.descripcion = descripcion;
 			this.cantidad = cantidad;
+			this.sector = sector;
+			this.ubicacion = ubicacion;
 		}
 		
 		public Long getId() {
@@ -196,6 +211,23 @@ public class IngresoStockController {
 			this.cantidad = cantidad;
 		}
 
+		public String getSector() {
+			return sector;
+		}
+
+		public void setSector(String sector) {
+			this.sector = sector;
+		}
+
+		public String getUbicacion() {
+			return ubicacion;
+		}
+
+		public void setUbicacion(String ubicacion) {
+			this.ubicacion = ubicacion;
+		}
+
+		
 		
 		
 	}

@@ -5,7 +5,7 @@
 				<div class="container">
 					<h1 class="title"><i aria-hidden="true" class="lineal lineal-stack-windows"></i>ALTA DE NUEVO USUARIO</h1>	
 						<div class="actions">
-					<a ng-href="#/abmUsuarios/alta" class="btn btn-primary">Nuevo Ingreso de Nuevo Usuario</a>
+					<a ng-href="#/abmUsuarios/alta" class="btn btn-primary">Ingreso de Nuevo Usuario</a>
 				</div>			
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<th class = "text-center">NOMBRE</th>
 						<th class = "text-center">APELLIDO</th>
 						<th class = "text-center">EMAIL</th>
-						<th class = "text-center">ESTADO</th>
+						<!--  <th class = "text-center">ESTADO</th> -->
 						<th class = "text-center">ACCIONES</th>
 					</tr>
 				</thead>
@@ -41,12 +41,14 @@
 						<td class = "text-center">{{ingreso.name}}</td>
 						<td class = "text-center">{{ingreso.lastName}}</td>
 						<td class = "text-center">{{ingreso.email}}</td>
-						<td class = "text-center">
+						<!--<td class = "text-center">
 							<span class="label label-sm label-success" ng-if="ingreso.active==1">Activo</span>
-							<span class="label label-sm label-default" ng-if="ingreso.active==2">Inactivo</span></td>
+							<span class="label label-sm label-default" ng-if="ingreso.active==2">Inactivo</span></td> -->
 						<td class = "text-center">
-							<a class="btn btn-primary" ng-href="#/abmUsuarios/edicion/{{ingreso.id}}" title="Editar">Editar</a>
-							<a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(ingreso)">Eliminar</a>
+							<a class="btn btn-secondary" ng-href="#/abmUsuarios/edicion/{{ingreso.id}}" title="Editar">Editar</a>
+								<span ng-if="ingreso.active==1"><a class="btn btn-primary" title="Activo" ng-click="ctrl.remove(ingreso)">Activo</a></span>
+								<span ng-if="ingreso.active==2"><a class="btn btn-danger" title="Inactivo" ng-click="ctrl.remove(ingreso)">Inactivo</a></span></td>
+							<!--  <a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(ingreso)">Eliminar</a> -->
 						</td>
 					</tr>
 				</tbody>

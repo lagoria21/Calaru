@@ -31,7 +31,7 @@ miGire.factory('UsuarioResource', function($resource) {
 	});
 })
 
-miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log, $http){
+miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log, $http, $q){
 	var self = this;
 	self.ingreso = UsuarioResource.query();
 	
@@ -76,19 +76,36 @@ miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log
 			var a = "ACTIVAR USUARIO";
 			var b = "¿Esta seguro que desea activar el Usuario?";
 		}
+	
 		
-		msgDialog.showMessage({
+		msgDialog.showMessage({		
 			header: a, 
 			message: b,
 			buttons:[
 			{label:"Si", action: function() {
-				UsuarioResource.remove({id: ingreso.id}, function() {
-					self.reloadPage = true;
-				}, function(error) {
-					msgDialog.showMessage({header: "Error", message: error.statusText});
-				});
+				
+				var REST_SERVICE_URI = 'http://localhost:8080/back/usuarios/modificaEstado/';		
+				var deferred = $q.defer();
+				
+						$http.put(REST_SERVICE_URI+ingreso.id, ingreso)
+			            		.then(
+			            				function (response) {
+			            					deferred.resolve(response.data);
+			            					self.reloadPage = true;
+			            				},
+			            				function(errResponse){
+			            					console.error('Error no se pudo cambiar el estado');
+			            					deferred.reject(errResponse);
+			            				}
+			            		)
+			
+				//UsuarioResource.remove({id: ingreso.id}, function() {
+				//	self.reloadPage = true;
+			//	}, function(error) {
+			//		msgDialog.showMessage({header: "Error", message: error.statusText});
+			//	});
 			}},
-			{label:"No", action: function() {}}]
+			{label:"No", action: function() {self.reloadPage = true;}}]
 		});
 	}
 	
@@ -104,7 +121,8 @@ miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $l
 	
 	self.aceptar = function() {
 		if(self.ingreso.id) {
-			self.ingreso.active = self.ingreso.active.active;
+			//self.ingreso.active = self.ingreso.active.active;
+			//self.ingreso.active = 1;
 			self.ingreso.$update(function(response) {
 				$location.path('abmUsuarios/lista');
 			}, function(error) {
@@ -115,16 +133,19 @@ miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $l
 			})
 		} else {
 			//self.ingreso.active = self.tipoEstado.active.active;
-			self.ingreso.active = self.ingreso.active.active;
+			//self.ingreso.active = self.ingreso.active.active;
+			self.ingreso.active = 1;
 			self.ingreso.$save(function(response) {
 				$location.path('abmUsuarios/lista');
 			}, function(error) {
 				if(error.data && error.data.valor)
-					msgDialog.showMessage({header: "Alta de ingreso de stock", message: error.data.valor});
+					msgDialog.showMessage({header: "Se dio de alta el usuario", message: error.data.valor});
 				else 
 				msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
 			});
 		}
 	};
+	
+
 	
 });
