@@ -45,7 +45,7 @@ public class OrdenDeTrabajoController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.POST)
+/*	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> postIngreso(@RequestBody OrdenDeTrabajoDto ordenDeTrabajoDto) {
 		
 		Validation<String, OrdenDeTrabajo> vm = this.save(ordenTrabajoMapper.dtoToEntity(ordenDeTrabajoDto));
@@ -57,14 +57,14 @@ public class OrdenDeTrabajoController {
 			return new ResponseEntity<Texto>(new Texto(vm.fail()), HttpStatus.CONFLICT);
 		}
 	}
+	*/
 	
-	
-	private Validation<String, OrdenDeTrabajo> save(OrdenDeTrabajo ordenDeTrabajo) {
-		return Validation.success(repo.save(ordenDeTrabajo));
+	private Validation<String, IngresoStock> save(IngresoStock ordenDeTrabajo) {
+		return Validation.success(repos.save(ordenDeTrabajo));
 	}
 	
 	
-/*	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody IngresoStock ingresoStock) {
 		
@@ -79,5 +79,5 @@ public class OrdenDeTrabajoController {
 			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
 		}
 	}
-*/
+
 }

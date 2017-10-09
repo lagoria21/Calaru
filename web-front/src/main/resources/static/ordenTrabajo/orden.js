@@ -31,7 +31,7 @@ miGire.factory('OrdenTrabajoResource', function($resource) {
 
 
 
-miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas,$http, $q,$filter) {
+miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $location, empresas, $http, $q,$filter) {
 	
 	var self = this;
 	self.orden = orden;
