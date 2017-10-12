@@ -40,17 +40,17 @@
 		</div>
 		<br>
 		<br>
-		<!--  <div class="form-group">
+	    <div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">CONFIRMAR PASSWORD</label>
 			<div class="col-sm-10">
-			<input type="password" name="password" class="form-control" ng-model="ctrl.ingreso.password" placeholder="Ingrese una Password" required>
-			<span ng-messages="form.password.$error" ng-show="form.password.$dirty" style="color: maroon" role="alert">
-				<span ng-message="required">Requerido</span>
+			<input type="password" name="confirmPassword" class="form-control" ng-model="ctrl.ingreso.confirmPassword" compare-to="ctrl.ingreso.password" placeholder="Ingrese una Password" required>
+			 <span ng-messages="form.confirmPassword.$error" style="color: maroon" role="alert">
+				<span ng-message="compareTo">Las password son diferentes</span>
 			</span>
 			</div>
 		</div>
 		<br>
-		<br>-->
+		<br>
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">NOMBRE</label>
 			<div class="col-sm-10">
@@ -95,7 +95,16 @@
 	</div>
 </div>
 
-
+<style>
+    .ng-invalid {
+      border-color: red;
+      outline-color: red;
+    }
+    .ng-valid {
+      border-color: green;
+      outline-color: green;
+    }
+  </style>
 
 
 

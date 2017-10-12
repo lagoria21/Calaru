@@ -2,6 +2,26 @@ miGire.factory('UsuarioResource', function($resource) {
 	return $resource('usuarios');
 });
 
+miGire.directive("compareTo", function() {
+    return {
+      require: "ngModel",
+      scope: {
+        confirmPassword: "=compareTo"
+      },
+      link: function(scope, element, attributes, modelVal) {
+
+        modelVal.$validators.compareTo = function(val) {
+        		 return val == scope.confirmPassword; 
+        };
+
+        scope.$watch("confirmPassword", function() {
+          modelVal.$validate();
+        });
+      }
+    };
+});
+
+
 miGire.config(function($routeProvider) {
 	$routeProvider.when('/abmUsuarios/lista', {
 		templateUrl : 'abmUsuarios/listaUsuario.html',
@@ -34,6 +54,8 @@ miGire.factory('UsuarioResource', function($resource) {
 miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log, $http, $q){
 	var self = this;
 	self.ingreso = UsuarioResource.query();
+	
+	self.reloadPage = true;
 	
 	self.filtro = {};
 	
@@ -125,6 +147,7 @@ miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $l
 			//self.ingreso.active = 1;
 			self.ingreso.$update(function(response) {
 				$location.path('abmUsuarios/lista');
+				
 			}, function(error) {
 				if(error.data && error.data.valor)
 					msgDialog.showMessage({header: "Fallo la Modificaci&oacuten Del Usuario", message: error.data.valor});
