@@ -57,6 +57,7 @@ public class IngresoStock {
 	private String ingresoProducto;
 	
 	
+	
 	public IngresoStock() {
 		super();
 

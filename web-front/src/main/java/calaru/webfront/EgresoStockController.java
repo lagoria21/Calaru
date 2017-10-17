@@ -72,17 +72,33 @@ public class EgresoStockController {
 		private Long id;
 		private String responsable;
 		private LocalDate fecha;
+		private String equipo;
 
 		
 		public FiltroEgresoDto(){
 			super();
 		}
 		
-		public FiltroEgresoDto(Long id, String responsable, LocalDate fecha) {
+		public FiltroEgresoDto(Long id, String responsable, LocalDate fecha, String equipo) {
 			super();
 			this.id = id;
 			this.responsable = responsable;
 			this.fecha = fecha;
+			this.equipo = equipo;
+		}
+
+		
+		
+		public String getEquipo() {
+			return equipo;
+		}
+
+		public void setEquipo(String equipo) {
+			this.equipo = equipo;
+		}
+
+		public void setResponsable(String responsable) {
+			this.responsable = responsable;
 		}
 
 		public Long getId() {

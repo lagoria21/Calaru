@@ -15,6 +15,9 @@ public class OrdenDeTrabajoDto {
 	private String tarea;
 	private String tiempo;
 	private String herramienta;
+	private int cantidadMaxima;
+	private int cantidad;
+	private String descripcion;
 
 	public OrdenDeTrabajoDto() {
 		super();
@@ -22,7 +25,7 @@ public class OrdenDeTrabajoDto {
 
 	public OrdenDeTrabajoDto(long id, String sector, String responsable,
 			String equipo, LocalDate fecha, String orden, String tarea,
-			String tiempo, String herramienta) {
+			String tiempo, String herramienta, int cantidadMaxima, int cantidad, String descripcion) {
 		super();
 		this.id = id;
 		this.sector = sector;
@@ -33,9 +36,36 @@ public class OrdenDeTrabajoDto {
 		this.tarea = tarea;
 		this.tiempo = tiempo;
 		this.herramienta = herramienta;
+		this.cantidadMaxima = cantidadMaxima;
+		this.cantidad =  cantidad;
+		this.descripcion = descripcion;
 	}
 
 
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public int getCantidadMaxima() {
+		return cantidadMaxima;
+	}
+
+	public void setCantidadMaxima(int cantidadMaxima) {
+		this.cantidadMaxima = cantidadMaxima;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 
 	public long getId() {
 		return id;

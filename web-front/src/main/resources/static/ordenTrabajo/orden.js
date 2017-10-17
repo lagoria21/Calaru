@@ -69,14 +69,30 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
 	
 	$scope.aceptar = function(m){
 		
+		//ingreso.fechaIngreso = new Date(self.ingreso.fechaIngreso);
+		//self.orden = orden;
+		$scope.orden = orden;
+		
 		var REST_SERVICE_URI = 'http://localhost:9090/front/OrdenTrabajo/';	
 		var deferred = $q.defer();
 		
 		for(var i = 0; i < $scope.carrito.length; i++){
 		
-		$scope.carrito[i].empresas.cantidad = $scope.carrito[i].Cantidad; 
+		$scope.carrito[i].empresas.cantidad = $scope.carrito[i].Cantidad;
+		
+		$scope.carrito[i].empresas.tarea = $scope.orden.tarea;
+		$scope.carrito[i].empresas.sector = $scope.orden.sector;
+		$scope.carrito[i].empresas.responsable = $scope.orden.responsable;
+		$scope.carrito[i].empresas.equipo = $scope.orden.equipo;
+		$scope.carrito[i].empresas.fecha = new Date();
+		$scope.carrito[i].empresas.orden = $scope.orden.orden;
+		$scope.carrito[i].empresas.tiempo = $scope.orden.tiempo;
+		$scope.carrito[i].empresas.herramienta = $scope.orden.herramienta;
+		
+		
 		
 			$http.put(REST_SERVICE_URI+$scope.carrito[i].empresas.id, $scope.carrito[i].empresas)
+			//$scope.carrito[i].empresas
             		.then(
             				function (response) {
             					deferred.resolve(response.data);

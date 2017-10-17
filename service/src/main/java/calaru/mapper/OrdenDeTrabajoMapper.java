@@ -16,6 +16,12 @@ public class OrdenDeTrabajoMapper implements Mapper<OrdenDeTrabajo, OrdenDeTraba
 		dto.setResponsable(entity.getResponsable());
 		dto.setId(entity.getId());
 		dto.setFecha(entity.getFecha());
+		dto.setEquipo(entity.getEquipo());
+		dto.setOrden(entity.getOrden());
+		dto.setTarea(entity.getTarea());
+		dto.setTiempo(entity.getTiempo());
+		dto.setSector(entity.getSector());
+		dto.setHerramienta(entity.getHerramienta());
 		
 		return dto;
 	}

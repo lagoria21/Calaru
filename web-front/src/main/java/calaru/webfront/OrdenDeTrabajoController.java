@@ -59,18 +59,40 @@ public class OrdenDeTrabajoController {
 	}
 	*/
 	
+	
 	private Validation<String, IngresoStock> save(IngresoStock ordenDeTrabajo) {
 		return Validation.success(repos.save(ordenDeTrabajo));
+	}
+	
+	private Validation<String, OrdenDeTrabajo> saveOrden(OrdenDeTrabajo ordenDeTrabajo) {
+		return Validation.success(repo.save(ordenDeTrabajo));
 	}
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody IngresoStock ingresoStock) {
+	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody OrdenDeTrabajoDto ingresoStock) {
 		
-		IngresoStock entity = repos.findOne(id);	
+		
+		IngresoStock entity = repos.findOne(id);
 		int total = entity.getCantidadMaxima() - ingresoStock.getCantidad();
 		entity.setCantidadMaxima(total);
+		//int total = entity.getCantidadMaxima() - ingresoStock.getCantidad();
+		//entity.setCantidadMaxima(total);
+	
+		OrdenDeTrabajo entityOrdenDeTrabajo = new OrdenDeTrabajo();
+		
+		entityOrdenDeTrabajo.setSector(ingresoStock.getSector());
+		entityOrdenDeTrabajo.setResponsable(ingresoStock.getResponsable());
+		entityOrdenDeTrabajo.setEquipo(ingresoStock.getEquipo());
+		entityOrdenDeTrabajo.setFecha(ingresoStock.getFecha());
+		entityOrdenDeTrabajo.setOrden(ingresoStock.getOrden());
+		entityOrdenDeTrabajo.setTarea(ingresoStock.getTarea());
+		entityOrdenDeTrabajo.setTiempo(ingresoStock.getTiempo());
+		entityOrdenDeTrabajo.setHerramienta(ingresoStock.getHerramienta());
+		
+		saveOrden(entityOrdenDeTrabajo);
+		
 		
 		Validation<String, IngresoStock> vppf = save(entity);
 		if(vppf.isSuccess()) {
