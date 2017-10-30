@@ -28,4 +28,12 @@ public class ComunesController {
 		List<CantidadStockDto> lista = stockMapper.entitiesToDtos(stockCantidad.findAll());
 		return lista;
 	}
+	
+	/*@RequestMapping(value="/listaDeEmail", method = RequestMethod.GET)
+	public List<CantidadStockDto> queryCantidadDeEmail()
+	{
+		List<CantidadStockDto> lista = stockMapper.entitiesToDtos(stockCantidad.findAll());
+		return lista;
+	}*/
+	
 }

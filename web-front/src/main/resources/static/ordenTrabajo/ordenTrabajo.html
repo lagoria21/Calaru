@@ -18,6 +18,11 @@
 <div class="container">
 <form name="form">
 
+<!--  	<div ng-class="('minialert  active '+( ctrl.notificacion.resultSendResp ?  ((ctrl.notificacion.resultSendResp.resultado==0) ? 'minialert-success' : 'minialert-danger' )   :   'minialert-success' ))"  
+	ng-show="ctrl.notificacion.resultSendResp"><div class="container">{{ctrl.notificacion.resultSendResp.descripcion}}</div></div>-->
+	
+	<div><div class="container">hola</div></div>
+
 			<div class="form-horizontal">
 				<div class="form-group">
 					<label for="inputText" class="col-sm-2 control-label">SECTOR</label>
@@ -116,7 +121,8 @@
                             <th class="span1">Id</th>
                             <th class="span5">Producto</th>
 							<th class="span2">Cantidad a Usar</th>
-							<th class="span2">Cantidad Stock</th>
+							<th class="span2">Cantidad Stock Minimo</th>
+							<th class="span2">Cantidad Stock Maximo</th>
                             <th class="span2">Eliminar</th>
                         </tr>
                     </thead>
@@ -127,6 +133,7 @@
                             <td>
                                 <input type="text" ng-model="item.Cantidad" />
 							</td>
+							<td>{{item.empresas.cantidadMinima}}</td>
 							<td>{{item.empresas.cantidadMaxima - item.Cantidad}}</td>
                             <td>
                            		<a class="btn btn-danger" title="Eliminar" ng-click="ctrl.remove(item.empresas.id)">ELIMINAR</a>

@@ -7,15 +7,17 @@ public class CantidadStockDto {
 	private int cantidad;
 	private int codigo;
 	private int cantidadMaxima;
+	private int cantidadMinima;
 	
 	
-	public CantidadStockDto(long id,String descripcion, int cantidad, int codigo, int cantidadMaxima) {
+	public CantidadStockDto(long id,String descripcion, int cantidad, int codigo, int cantidadMaxima, int cantidadMinima) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.cantidad = cantidad;
 		this.codigo = codigo;
 		this.cantidadMaxima = cantidadMaxima;
+		this.cantidadMinima = cantidadMinima;
 	}
 	
 	public CantidadStockDto() {
@@ -61,6 +63,15 @@ public class CantidadStockDto {
 	public void setCantidadMaxima(int cantidadMaxima) {
 		this.cantidadMaxima = cantidadMaxima;
 	}
+
+	public int getCantidadMinima() {
+		return cantidadMinima;
+	}
+
+	public void setCantidadMinima(int cantidadMinima) {
+		this.cantidadMinima = cantidadMinima;
+	}
+	
 	
 	
 	

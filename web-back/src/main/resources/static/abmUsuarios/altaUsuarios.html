@@ -15,11 +15,12 @@
 		<div class="container">
 		
 		<form name="form">
-		
+		<!--  [A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$-->
+		<!-- ^[a-Z0-9]+@gmail\\.com$ -->
 		<div class="form-group">
 			<label for="inputText" class="col-sm-1 control-label">EMAIL</label>
 			<div class="col-sm-10">
-			<input type="text" name="email" class="form-control" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$" ng-model="ctrl.ingreso.email" placeholder="Ingrese un Email" required>
+			<input type="text" name="email" class="form-control" pattern="[A-Za-z0-9._%+-]+@[gmail]+\.[A-Za-z]{2,63}$" ng-model="ctrl.ingreso.email" placeholder="Ingrese un Email" required>
 			<span ng-messages="form.email.$error" ng-show="form.email.$dirty" style="color: maroon" role="alert">
 				<span ng-message="required">Requerido</span>
 				<span ng-message="pattern">Ingresar email valido</span>
