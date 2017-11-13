@@ -1,5 +1,7 @@
 package calaru.webback;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,10 +28,12 @@ import calaru.dto.UserDto;
 import calaru.mapper.Mapper;
 import calaru.model.IngresoStock;
 import calaru.model.IngresoStock_;
+import calaru.model.Role;
 import calaru.model.User;
 import calaru.model.User_;
 import calaru.model.Users;
 import calaru.model.Users_;
+import calaru.repository.RoleRepository;
 import calaru.repository.UserRepository;
 import calaru.repository.UsersRepository;
 import calaru.util.pager.Paginator;
@@ -56,6 +60,9 @@ public class UsuariosController {
 	
 	@Autowired
 	public PasswordEncoder passwordEncoder;
+	
+	@Autowired
+    private RoleRepository roleRepository;
 	
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -86,7 +93,10 @@ public class UsuariosController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> putParamPrefondeo(@PathVariable long id, @RequestBody User users) {
+				
+		Role userRole = roleRepository.findByRole("USER");		
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		users.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		
 		Validation<String, User> vppf = save(users);
 		if(vppf.isSuccess()) {
@@ -103,13 +113,6 @@ public class UsuariosController {
 		User user = repo.findById(users.getId());
 		user.setActive(users.getActive());
 		
-	/*	if(users.getActive() == 1){
-			users.setActive(2);
-		}
-		else{
-			users.setActive(1);
-		}
-		*/
 		
 		Validation<String, User> vppf = save(user);
 		if(vppf.isSuccess()) {
@@ -119,34 +122,11 @@ public class UsuariosController {
 		}
 	}
 	
-	/*@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<?> put(@PathVariable long id, @RequestBody User users) {
-		
-		UserDto dto;
-		
-		dto = getBuscar(users.getId());
-		
-		Validation<String, User> vppf = save(users);
-		if(vppf.isSuccess()) {
-			return new ResponseEntity<>(users, HttpStatus.ACCEPTED);
-		} else {
-			return new ResponseEntity<Texto>(new Texto(vppf.fail()), HttpStatus.CONFLICT);
-		}
-	}*/
 
 	
 	public UserDto getBuscar(int id) {	
 		return listaUserMapper.entityToDto(repos.findOne(id));
 	}
-	
-	/*@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ResponseBody
-	public ResponseEntity<?> deleteParamPrefondeo(@PathVariable long id) {
-		this.repo.delete(id);
-		return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
-	}*/
-	
 	
 	
 	@RequestMapping(value = "/page")

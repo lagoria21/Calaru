@@ -2,6 +2,11 @@ miGire.factory('UsuarioResource', function($resource) {
 	return $resource('usuarios');
 });
 
+
+miGire.factory('EmailResource', function($resource) {
+	return $resource('listaDeEmail');
+});
+
 miGire.directive("compareTo", function() {
     return {
       require: "ngModel",
@@ -34,12 +39,22 @@ miGire.config(function($routeProvider) {
 				var id = $route.current.params['id'];
 				return UsuarioResource.get({id : id}).$promise;
 			},
+			email : function(EmailResource){
+				return new EmailResource();
+				},
+
 		}
 	}).when('/abmUsuarios/alta', {
 		templateUrl : 'abmUsuarios/altaUsuarios.html',
 		controller : 'UsuarioAltaFormCtrl as ctrl',
 		resolve : {
-			ingreso : function(UsuarioResource) {	return new UsuarioResource(); },			
+			ingreso : function(UsuarioResource) {	
+				return new UsuarioResource(); },
+			
+			email : function(EmailResource){
+				//return new EmailResource();
+				return EmailResource.query().$promise;
+			},
 		}
 	});	
 });
@@ -54,6 +69,7 @@ miGire.factory('UsuarioResource', function($resource) {
 miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log, $http, $q){
 	var self = this;
 	self.ingreso = UsuarioResource.query();
+
 	
 	self.reloadPage = true;
 	
@@ -135,16 +151,17 @@ miGire.controller('UsuariosListaCtrl', function(UsuarioResource, msgDialog, $log
 });
 
 
-miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $location) {
+miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, email, msgDialog, $location) {
 	var self = this;
-	self.ingreso = ingreso;	
+	self.ingreso = ingreso;
+	self.email = email;
 	
 	self.tipoEstado = [{"active":1 , "descripcion":"ACTIVO"},{"active":2 , "descripcion":"INACTIVO"}];
+		
 	
 	self.aceptar = function() {
-		if(self.ingreso.id) {
-			//self.ingreso.active = self.ingreso.active.active;
-			//self.ingreso.active = 1;
+		if(self.ingreso.id) {	
+			
 			self.ingreso.$update(function(response) {
 				$location.path('abmUsuarios/lista');
 				
@@ -155,20 +172,53 @@ miGire.controller('UsuarioAltaFormCtrl', function($scope, ingreso, msgDialog, $l
 					msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
 			})
 		} else {
-			//self.ingreso.active = self.tipoEstado.active.active;
-			//self.ingreso.active = self.ingreso.active.active;
-			self.ingreso.active = 1;
-			self.ingreso.$save(function(response) {
-				$location.path('abmUsuarios/lista');
-			}, function(error) {
-				if(error.data && error.data.valor)
-					msgDialog.showMessage({header: "Se dio de alta el usuario", message: error.data.valor});
-				else 
-				msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
-			});
+
+			self.ingreso.active = 1;			
+			var algos = beto(email, ingreso);
+			
+			if(algos == true)
+				{
+				msgDialog.showMessage({
+					header: "Aviso", 
+					message: "El email ingresado ya fue dado de alta, ingrese otro por favor", 
+					buttons:[
+					{label:"Entendido", action: function() {
+					return;
+					}}]
+				});
+				}
+			else
+				{
+				self.ingreso.$save(function(response) {
+					$location.path('abmUsuarios/lista');
+				}, function(error) {
+					if(error.data && error.data.valor)
+						msgDialog.showMessage({header: "Se dio de alta el usuario", message: error.data.valor});
+					else 
+					msgDialog.showMessage({header: "Ha ocurrido un error", message: error.statusText});
+				});
+				}
+			
+			
+			
+			
+			
 		}
 	};
 	
+	
+	function beto(email, ingreso) {
+		
+		for(var i = 0; i < self.email.length; i++){
+			
+			if(self.email[i].email == self.ingreso.email){				
+				return true;				
+			}		
+		}
+		
+		return false;
+		
+	}
 
 	
 });

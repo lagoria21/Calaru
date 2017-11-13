@@ -60,6 +60,23 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
         }
     }
 	
+/*	self.remove = function(ingreso) {
+		msgDialog.showMessage({
+			header: "Producto", 
+			message: "¿Esta seguro que desea eliminar el Producto?", 
+			buttons:[
+			{label:"Si", action: function() {
+				IngresoStockResource.remove({id: ingreso.id}, function() {
+					self.reloadPage = true;
+				}, function(error) {
+					msgDialog.showMessage({header: "Error", message: error.statusText});
+				});
+			}},
+			{label:"No", action: function() {}}]
+		});
+	}*/
+	
+	
 	self.remove = function(idElemento)
 	{
 		var index = $scope.carrito.indexOf(idElemento);
@@ -69,13 +86,12 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
 	
 	$scope.aceptar = function(m){
 		
-		//ingreso.fechaIngreso = new Date(self.ingreso.fechaIngreso);
-		//self.orden = orden;
 		$scope.orden = orden;
 		
 		var REST_SERVICE_URI = 'http://localhost:9090/front/OrdenTrabajo/';	
 		var deferred = $q.defer();
 		
+
 		for(var i = 0; i < $scope.carrito.length; i++){
 		
 		$scope.carrito[i].empresas.cantidad = $scope.carrito[i].Cantidad;
@@ -89,10 +105,19 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
 		$scope.carrito[i].empresas.tiempo = $scope.orden.tiempo;
 		$scope.carrito[i].empresas.herramienta = $scope.orden.herramienta;
 		
+		if(($scope.carrito[i].empresas.cantidadMaxima - $scope.carrito[i].empresas.cantidad) <= $scope.carrito[i].empresas.cantidadMinima){
 		
-		
+			
+			msgDialog.showMessage({
+				header: "Aviso", 
+				message: "No se realizara la orden de trabajo porque no tiene stock suficiente", 
+				buttons:[
+				{label:"Entendido", action: function() {}}]
+			});
+					
+		}
+
 			$http.put(REST_SERVICE_URI+$scope.carrito[i].empresas.id, $scope.carrito[i].empresas)
-			//$scope.carrito[i].empresas
             		.then(
             				function (response) {
             					deferred.resolve(response.data);
@@ -103,6 +128,9 @@ miGire.controller('OrdenTrabajoFormCtrl', function($scope, orden, msgDialog, $lo
             				}
             		)
 		}
+		
+		
+		
 	};
 	      
 });	
